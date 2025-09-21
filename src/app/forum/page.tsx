@@ -19,13 +19,13 @@ interface Post {
 const ForumPage = () => {
   const society = db.elysium123;
   const { user } = useAuth();
-  
+
   // State management
   const [posts, setPosts] = useState<Post[]>(society.forum);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filter, setFilter] = useState<'all' | 'recent'>('all');
+  const [filter, setFilter] = useState<"all" | "recent">("all");
   const [visiblePosts, setVisiblePosts] = useState(2);
-  const [formData, setFormData] = useState({ title: '', content: '' });
+  const [formData, setFormData] = useState({ title: "", content: "" });
   const [showToast, setShowToast] = useState(false);
 
   // Helper functions
@@ -58,11 +58,12 @@ const ForumPage = () => {
   };
 
   // Filter posts based on the selected filter
-  const filteredPosts = posts.filter(post => {
-    if (filter === 'recent') {
+  const filteredPosts = posts.filter((post) => {
+    if (filter === "recent") {
       const now = new Date();
       const postDate = new Date(post.timestamp);
-      const diffInHours = (now.getTime() - postDate.getTime()) / (1000 * 60 * 60);
+      const diffInHours =
+        (now.getTime() - postDate.getTime()) / (1000 * 60 * 60);
       return diffInHours <= 24;
     }
     return true;
@@ -74,7 +75,7 @@ const ForumPage = () => {
     if (!formData.title.trim() || !formData.content.trim() || !user) return;
 
     const newPost: Post = {
-      id: Math.max(...posts.map(p => p.id)) + 1,
+      id: Math.max(...posts.map((p) => p.id)) + 1,
       author: user.name,
       title: formData.title.trim(),
       content: formData.content.trim(),
@@ -82,7 +83,7 @@ const ForumPage = () => {
     };
 
     setPosts([newPost, ...posts]);
-    setFormData({ title: '', content: '' });
+    setFormData({ title: "", content: "" });
     setIsModalOpen(false);
     setShowToast(true);
     setTimeout(() => setShowToast(false), 3000);
@@ -90,7 +91,7 @@ const ForumPage = () => {
 
   // Load more posts
   const loadMorePosts = () => {
-    setVisiblePosts(prev => prev + 2);
+    setVisiblePosts((prev) => prev + 2);
   };
 
   return (
@@ -105,9 +106,11 @@ const ForumPage = () => {
 
         {/* Modal */}
         {isModalOpen && (
-          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-opacity-50 fixed inset-0 z-40 flex items-center justify-center bg-black">
             <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-              <h2 className="mb-4 text-xl font-bold text-gray-900">Create New Post</h2>
+              <h2 className="mb-4 text-xl font-bold text-gray-900">
+                Create New Post
+              </h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -115,9 +118,14 @@ const ForumPage = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
                     value={formData.title}
-                    onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        title: e.target.value,
+                      }))
+                    }
                     required
                   />
                 </div>
@@ -127,23 +135,28 @@ const ForumPage = () => {
                   </label>
                   <textarea
                     rows={4}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
                     value={formData.content}
-                    onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        content: e.target.value,
+                      }))
+                    }
                     required
                   />
                 </div>
                 <div className="flex gap-3">
                   <button
                     type="submit"
-                    className="flex-1 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="flex-1 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   >
                     Create Post
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                   >
                     Cancel
                   </button>
@@ -167,7 +180,7 @@ const ForumPage = () => {
               </div>
 
               {/* Create New Post Button */}
-              <button 
+              <button
                 onClick={() => setIsModalOpen(true)}
                 className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
               >
@@ -237,22 +250,22 @@ const ForumPage = () => {
                 Recent Discussions
               </h2>
               <div className="flex items-center gap-2">
-                <button 
-                  onClick={() => setFilter('all')}
+                <button
+                  onClick={() => setFilter("all")}
                   className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
-                    filter === 'all' 
-                      ? 'border-blue-500 bg-blue-50 text-blue-700'
-                      : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                    filter === "all"
+                      ? "border-blue-500 bg-blue-50 text-blue-700"
+                      : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
                   }`}
                 >
                   All
                 </button>
-                <button 
-                  onClick={() => setFilter('recent')}
+                <button
+                  onClick={() => setFilter("recent")}
                   className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
-                    filter === 'recent' 
-                      ? 'border-blue-500 bg-blue-50 text-blue-700'
-                      : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                    filter === "recent"
+                      ? "border-blue-500 bg-blue-50 text-blue-700"
+                      : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
                   }`}
                 >
                   Recent
@@ -375,7 +388,7 @@ const ForumPage = () => {
                 <p className="mt-2 text-gray-600">
                   Be the first to start a conversation in your community!
                 </p>
-                <button 
+                <button
                   onClick={() => setIsModalOpen(true)}
                   className="bg-brand hover:bg-brand-dark mt-4 inline-flex items-center gap-2 rounded-lg px-4 py-2 font-semibold text-white transition-colors duration-200"
                 >
@@ -387,7 +400,7 @@ const ForumPage = () => {
             {/* Load More */}
             {filteredPosts.length > visiblePosts && (
               <div className="text-center">
-                <button 
+                <button
                   onClick={loadMorePosts}
                   className="rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50"
                 >
