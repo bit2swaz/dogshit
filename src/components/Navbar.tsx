@@ -44,7 +44,7 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium transition-colors duration-200 hover:bg-gray-50 rounded-md"
+                  className="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-gray-900"
                 >
                   {link.name}
                 </Link>
@@ -56,7 +56,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500"
+              className="inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-500 focus:outline-none focus:ring-inset"
               aria-expanded="false"
             >
               <span className="sr-only">Open main menu</span>
@@ -99,10 +99,10 @@ const Navbar = () => {
 
       {/* Mobile menu overlay */}
       <div
-        className={`fixed inset-0 z-50 md:hidden transition-all duration-300 ease-in-out ${
+        className={`fixed inset-0 z-50 transition-all duration-300 ease-in-out md:hidden ${
           isMenuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
         }`}
       >
         {/* Background overlay */}
@@ -115,7 +115,7 @@ const Navbar = () => {
 
         {/* Menu panel */}
         <div
-          className={`absolute right-0 top-0 h-full w-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${
+          className={`absolute top-0 right-0 h-full w-full transform bg-white shadow-xl transition-transform duration-300 ease-in-out ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -130,7 +130,7 @@ const Navbar = () => {
             </Link>
             <button
               onClick={closeMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500"
+              className="inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-500 focus:outline-none focus:ring-inset"
             >
               <span className="sr-only">Close menu</span>
               <svg
@@ -152,12 +152,12 @@ const Navbar = () => {
           </div>
 
           {/* Menu links */}
-          <div className="flex flex-col py-8 px-4 space-y-4">
+          <div className="flex flex-col space-y-4 px-4 py-8">
             {navigationLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-lg font-medium text-gray-900 hover:text-gray-600 py-3 px-4 rounded-md hover:bg-gray-50 transition-colors duration-200"
+                className="rounded-md px-4 py-3 text-lg font-medium text-gray-900 transition-colors duration-200 hover:bg-gray-50 hover:text-gray-600"
                 onClick={closeMenu}
               >
                 {link.name}
