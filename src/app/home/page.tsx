@@ -23,19 +23,27 @@ const HomePage = () => {
         {/* Summary Stats */}
         <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
           <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-            <h3 className="text-2xl font-bold text-gray-900">{society.forum.length}</h3>
+            <h3 className="text-2xl font-bold text-gray-900">
+              {society.forum.length}
+            </h3>
             <p className="text-sm text-gray-600">Forum Posts</p>
           </div>
           <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-            <h3 className="text-2xl font-bold text-gray-900">{society.marketplace.length}</h3>
+            <h3 className="text-2xl font-bold text-gray-900">
+              {society.marketplace.length}
+            </h3>
             <p className="text-sm text-gray-600">Marketplace Items</p>
           </div>
           <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-            <h3 className="text-2xl font-bold text-gray-900">{society.gatePasses.length}</h3>
+            <h3 className="text-2xl font-bold text-gray-900">
+              {society.gatePasses.length}
+            </h3>
             <p className="text-sm text-gray-600">Gate Passes</p>
           </div>
           <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-            <h3 className="text-2xl font-bold text-gray-900">{society.complaints.length}</h3>
+            <h3 className="text-2xl font-bold text-gray-900">
+              {society.complaints.length}
+            </h3>
             <p className="text-sm text-gray-600">Complaints</p>
           </div>
         </div>
@@ -45,12 +53,12 @@ const HomePage = () => {
           {/* Recent Announcements Card */}
           <Link
             href="/forum"
-            className="group rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:border-brand hover:shadow-md"
+            className="group hover:border-brand rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md"
           >
             <div className="mb-4">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 group-hover:bg-blue-100">
                 <svg
-                  className="h-6 w-6 text-brand"
+                  className="text-brand h-6 w-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -74,7 +82,7 @@ const HomePage = () => {
               {society.forum.slice(0, 2).map((post) => (
                 <div
                   key={post.id}
-                  className="rounded border-l-4 border-brand bg-gray-50 p-2"
+                  className="border-brand rounded border-l-4 bg-gray-50 p-2"
                 >
                   <p className="text-xs font-medium text-gray-900">
                     {post.title}
@@ -88,7 +96,7 @@ const HomePage = () => {
           {/* New Marketplace Items Card */}
           <Link
             href="/marketplace"
-            className="group rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:border-brand hover:shadow-md"
+            className="group hover:border-brand rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md"
           >
             <div className="mb-4">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-green-50 group-hover:bg-green-100">
@@ -122,7 +130,9 @@ const HomePage = () => {
                   <p className="text-xs font-medium text-gray-900">
                     {item.item}
                   </p>
-                  <p className="text-xs text-gray-600">₹{item.price} by {item.seller}</p>
+                  <p className="text-xs text-gray-600">
+                    ₹{item.price} by {item.seller}
+                  </p>
                 </div>
               ))}
             </div>
@@ -131,7 +141,7 @@ const HomePage = () => {
           {/* Recent Gate Activity Card */}
           <Link
             href="/gate"
-            className="group col-span-2 rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:border-brand hover:shadow-md md:col-span-1"
+            className="group hover:border-brand col-span-2 rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md md:col-span-1"
           >
             <div className="mb-4">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-purple-50 group-hover:bg-purple-100">

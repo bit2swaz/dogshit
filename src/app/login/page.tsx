@@ -17,7 +17,9 @@ const LoginPage = () => {
   };
 
   return (
-    <main className={`flex min-h-screen items-center justify-center bg-slate-50 px-4 ${inter.className}`}>
+    <main
+      className={`flex min-h-screen items-center justify-center bg-slate-50 px-4 ${inter.className}`}
+    >
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
           <h1 className="mb-2 text-4xl font-bold text-gray-900">
@@ -40,7 +42,7 @@ const LoginPage = () => {
                 id="societyCode"
                 value={societyCode}
                 onChange={(e) => setSocietyCode(e.target.value)}
-                className="w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-transparent focus:ring-2 focus:ring-brand focus:outline-none"
+                className="focus:ring-brand w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-transparent focus:ring-2 focus:outline-none"
                 placeholder="Enter your society code"
                 required
               />
@@ -48,7 +50,7 @@ const LoginPage = () => {
 
             <button
               type="submit"
-              className="w-full rounded-md bg-brand px-4 py-3 font-semibold text-white transition-colors duration-200 hover:bg-brand-dark focus:ring-2 focus:ring-brand focus:ring-offset-2 focus:outline-none"
+              className="bg-brand hover:bg-brand-dark focus:ring-brand w-full rounded-md px-4 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
             >
               Login
             </button>
