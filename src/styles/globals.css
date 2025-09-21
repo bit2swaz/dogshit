@@ -11,3 +11,18 @@
   --color-brand: #2563eb; /* Your primary brand color */
   --color-brand-dark: #1d4ed8; /* Darker blue for hover states */
 }
+
+body {
+  /* A very subtle gradient gives depth over a flat color */
+  background-color: #f8f9fa; /* Fallback color */
+  background-image: radial-gradient(circle at top left, #ffffff, #f0f2f5);
+}
+
+/* Add a subtle, smooth transition to almost everything */
+* {
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
