@@ -101,6 +101,13 @@ const ServicesPage = () => {
   const [services, setServices] = useState<Service[]>(initialServicesData);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [addFormData, setAddFormData] = useState({
+    category: "",
+    name: "",
+    contact: "",
+    description: "",
+  });
 
   // Helper functions
   const toggleFavorite = (serviceId: number) => {
@@ -114,6 +121,38 @@ const ServicesPage = () => {
   };
 
   // Copy to clipboard function that works in iframes
+  // Add service provider functionality
+  const handleAddFormChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+    setAddFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleAddService = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newService: Service = {
+      id: services.length + 1,
+      category: addFormData.category,
+      name: addFormData.name,
+      contact: addFormData.contact,
+      description: addFormData.description,
+      favorited: false,
+    };
+
+    setServices([...services, newService]);
+    setShowAddModal(false);
+    setAddFormData({ category: "", name: "", contact: "", description: "" });
+    setToastMessage(`Added ${newService.name} to services`);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
   const copyToClipboard = async (text: string) => {
     try {
       // Modern clipboard API
@@ -304,7 +343,10 @@ const ServicesPage = () => {
               </div>
 
               {/* Add Service Button */}
-              <button className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none">
+              <button
+                onClick={() => setShowAddModal(true)}
+                className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+              >
                 <svg
                   className="h-5 w-5"
                   fill="none"
@@ -518,6 +560,124 @@ const ServicesPage = () => {
             </div>
           )}
         </div>
+
+        {/* Add Service Provider Modal */}
+        {showAddModal && (
+          <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black">
+            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-gray-900">
+                  Add Service Provider
+                </h2>
+                <button
+                  onClick={() => setShowAddModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <form onSubmit={handleAddService} className="space-y-4">
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    Category
+                  </label>
+                  <select
+                    name="category"
+                    value={addFormData.category}
+                    onChange={handleAddFormChange}
+                    required
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  >
+                    <option value="">Select a category</option>
+                    <option value="Pre-Approved Plumbers">
+                      Pre-Approved Plumbers
+                    </option>
+                    <option value="Pre-Approved Electricians">
+                      Pre-Approved Electricians
+                    </option>
+                    <option value="Cleaning Services">Cleaning Services</option>
+                    <option value="Delivery Services">Delivery Services</option>
+                    <option value="Other Services">Other Services</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    Service Provider Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={addFormData.name}
+                    onChange={handleAddFormChange}
+                    required
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Enter provider name"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    Contact Number
+                  </label>
+                  <input
+                    type="tel"
+                    name="contact"
+                    value={addFormData.contact}
+                    onChange={handleAddFormChange}
+                    required
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Enter contact number"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    Description
+                  </label>
+                  <textarea
+                    name="description"
+                    value={addFormData.description}
+                    onChange={handleAddFormChange}
+                    required
+                    rows={3}
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Describe the services offered"
+                  />
+                </div>
+
+                <div className="flex gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setShowAddModal(false)}
+                    className="flex-1 rounded-lg border border-gray-300 px-4 py-2 font-medium text-gray-700 hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
+                  >
+                    Add Provider
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </AuthGuard>
   );

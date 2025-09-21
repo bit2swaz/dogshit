@@ -13,6 +13,13 @@ const StaffContactsPage = () => {
   const staffMembers = society.staff;
   const [toast, setToast] = useState("");
   const [activeChatId, setActiveChatId] = useState<number | null>(null);
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [chatMessages, setChatMessages] = useState<
+    Record<
+      number,
+      Array<{ id: number; text: string; sender: string; timestamp: string }>
+    >
+  >({});
 
   // Copy to clipboard function with fallback for iframe environments
   const copyToClipboard = async (text: string) => {
@@ -40,6 +47,50 @@ const StaffContactsPage = () => {
       console.error("Failed to copy: ", err);
       setToast("Failed to copy contact number");
       setTimeout(() => setToast(""), 3000);
+    }
+  };
+
+  // Send message functionality
+  const sendMessage = (staffId: number) => {
+    if (!currentMessage.trim()) return;
+
+    const newMessage = {
+      id: Date.now(),
+      text: currentMessage,
+      sender: "You",
+      timestamp: new Date().toISOString(),
+    };
+
+    setChatMessages((prev) => ({
+      ...prev,
+      [staffId]: [...(prev[staffId] ?? []), newMessage],
+    }));
+
+    setCurrentMessage("");
+
+    // Simulate staff response after a delay
+    setTimeout(() => {
+      const staffName =
+        staffMembers.find((s) => s.id === staffId)?.name ?? "Staff";
+      const autoResponse = {
+        id: Date.now() + 1,
+        text: `Thank you for your message! I'll get back to you as soon as possible. - ${staffName}`,
+        sender: staffName,
+        timestamp: new Date().toISOString(),
+      };
+
+      setChatMessages((prev) => ({
+        ...prev,
+        [staffId]: [...(prev[staffId] ?? []), autoResponse],
+      }));
+    }, 1000);
+  };
+
+  // Handle Enter key press in chat input
+  const handleKeyPress = (e: React.KeyboardEvent, staffId: number) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage(staffId);
     }
   };
 
@@ -456,21 +507,66 @@ const StaffContactsPage = () => {
               </button>
             </div>
             <div className="h-60 overflow-y-auto p-4">
-              <div className="mb-4 rounded-lg bg-gray-100 p-3">
-                <p className="text-sm text-gray-600">
-                  Hello! This is a demo chatbox. In a real application, this
-                  would connect to a messaging system.
-                </p>
-              </div>
+              {(chatMessages[activeChatId] ?? []).length > 0 ? (
+                <div className="space-y-3">
+                  {(chatMessages[activeChatId] ?? []).map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${
+                        message.sender === "You"
+                          ? "justify-end"
+                          : "justify-start"
+                      }`}
+                    >
+                      <div
+                        className={`max-w-xs rounded-lg px-3 py-2 text-sm ${
+                          message.sender === "You"
+                            ? "bg-blue-600 text-white"
+                            : "bg-gray-100 text-gray-800"
+                        }`}
+                      >
+                        <p>{message.text}</p>
+                        <p
+                          className={`mt-1 text-xs ${
+                            message.sender === "You"
+                              ? "text-blue-100"
+                              : "text-gray-500"
+                          }`}
+                        >
+                          {new Date(message.timestamp).toLocaleTimeString()}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="mb-4 rounded-lg bg-gray-100 p-3">
+                  <p className="text-sm text-gray-600">
+                    Start a conversation with{" "}
+                    {staffMembers.find((s) => s.id === activeChatId)?.name}.
+                    They&apos;ll receive your messages and can respond
+                    accordingly.
+                  </p>
+                </div>
+              )}
             </div>
             <div className="border-t border-gray-200 p-4">
               <div className="flex gap-2">
                 <input
                   type="text"
+                  value={currentMessage}
+                  onChange={(e) => setCurrentMessage(e.target.value)}
+                  onKeyPress={(e) =>
+                    activeChatId && handleKeyPress(e, activeChatId)
+                  }
                   placeholder="Type your message..."
                   className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
                 />
-                <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                <button
+                  onClick={() => activeChatId && sendMessage(activeChatId)}
+                  disabled={!currentMessage.trim()}
+                  className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
+                >
                   Send
                 </button>
               </div>

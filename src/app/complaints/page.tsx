@@ -29,6 +29,9 @@ const ComplaintsPage = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [selectedComplaint, setSelectedComplaint] = useState<Complaint | null>(
+    null,
+  );
 
   // Mock complaints data - in a real app, this would come from the server
   const [complaints, setComplaints] = useState<Complaint[]>([
@@ -374,7 +377,10 @@ const ComplaintsPage = () => {
                         <span>{formatTimestamp(complaint.timestamp)}</span>
                       </div>
                     </div>
-                    <button className="self-start rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
+                    <button
+                      onClick={() => setSelectedComplaint(complaint)}
+                      className="self-start rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                    >
                       View Details
                     </button>
                   </div>
@@ -408,6 +414,109 @@ const ComplaintsPage = () => {
             </div>
           )}
         </div>
+
+        {/* Complaint Details Modal */}
+        {selectedComplaint && (
+          <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black">
+            <div className="w-full max-w-2xl rounded-lg bg-white p-6 shadow-xl">
+              <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-gray-900">
+                  Complaint Details
+                </h2>
+                <button
+                  onClick={() => setSelectedComplaint(null)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg
+                    className="h-6 w-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <div className="space-y-4">
+                {/* Complaint Header */}
+                <div className="flex flex-wrap items-center gap-3 border-b border-gray-200 pb-4">
+                  <span className="text-lg font-medium text-gray-900">
+                    #{selectedComplaint.id}
+                  </span>
+                  <span className="rounded-full bg-gray-100 px-3 py-1 text-sm font-medium text-gray-700">
+                    {selectedComplaint.category}
+                  </span>
+                  <span
+                    className={`rounded-full px-3 py-1 text-sm font-medium ${getStatusColor(selectedComplaint.status)}`}
+                  >
+                    {selectedComplaint.status}
+                  </span>
+                </div>
+
+                {/* Complaint Content */}
+                <div>
+                  <h3 className="mb-2 text-sm font-medium text-gray-700">
+                    Description
+                  </h3>
+                  <p className="leading-relaxed text-gray-600">
+                    {selectedComplaint.description}
+                  </p>
+                </div>
+
+                {/* Meta Information */}
+                <div className="grid grid-cols-1 gap-4 border-t border-gray-200 pt-4 sm:grid-cols-2">
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-700">
+                      Submitted By
+                    </h4>
+                    <p className="text-gray-600">{selectedComplaint.author}</p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-700">
+                      Submitted
+                    </h4>
+                    <p className="text-gray-600">
+                      {formatTimestamp(selectedComplaint.timestamp)}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-700">
+                      Date & Time
+                    </h4>
+                    <p className="text-gray-600">
+                      {new Date(selectedComplaint.timestamp).toLocaleString()}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-medium text-gray-700">
+                      Complaint ID
+                    </h4>
+                    <p className="text-gray-600">#{selectedComplaint.id}</p>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 border-t border-gray-200 pt-4">
+                  <button
+                    onClick={() => setSelectedComplaint(null)}
+                    className="flex-1 rounded-lg border border-gray-300 px-4 py-2 font-medium text-gray-700 hover:bg-gray-50"
+                  >
+                    Close
+                  </button>
+                  <button className="flex-1 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700">
+                    Track Status
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </AuthGuard>
   );
