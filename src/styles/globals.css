@@ -1,6 +1,16 @@
+/* 1. Import the Google Font */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* 2. Import Tailwind's new core */
 @import "tailwindcss";
 
+/* 3. Define your custom theme */
 @theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-brand-light: #3b82f6; /* Lighter blue for accents */
+  --color-brand: #2563eb; /* Your primary brand color */
+  --color-brand-dark: #1d4ed8; /* Darker blue for hover states */
 }
