@@ -2,25 +2,39 @@
   "elysium123": {
     "name": "Elysium Greens",
     "forum": [
-      { "id": 1, "author": "Aditya S.", "title": "Lost my cat near the park", "content": "My tabby cat, Leo, went missing...", "timestamp": "2025-09-21T08:00:00Z" },
-      { "id": 2, "author": "Saksham G.", "title": "Weekly potluck this Saturday!", "content": "Everyone is invited...", "timestamp": "2025-09-20T19:30:00Z" }
+      { "id": 1, "author": "Aditya S.", "title": "Lost my cat near the park", "content": "My tabby cat, Leo, went missing this morning. He's very friendly. Please contact me if you see him.", "timestamp": "2025-09-21T08:00:00Z" },
+      { "id": 2, "author": "Saksham G.", "title": "Weekly potluck this Saturday!", "content": "Everyone is invited to the community potluck at the clubhouse this Saturday at 6 PM. Bring your favorite dish!", "timestamp": "2025-09-20T19:30:00Z" },
+      { "id": 3, "author": "Priya K.", "title": "Need recommendations for a good internet provider", "content": "My current connection is terrible. What are you all using and what are your speeds like?", "timestamp": "2025-09-20T15:10:00Z" },
+      { "id": 4, "author": "Rohan M.", "title": "Water supply disruption tomorrow morning", "content": "Heads up everyone, the society office announced a planned water supply cut from 9 AM to 11 AM tomorrow for tank cleaning.", "timestamp": "2025-09-19T21:05:00Z" },
+      { "id": 5, "author": "Admin", "title": "Official Announcement: Annual General Meeting", "content": "The Annual General Meeting will be held on October 5th in the community hall. All residents are requested to attend.", "timestamp": "2025-09-18T11:00:00Z" }
     ],
     "marketplace": [
-      { "id": 1, "seller": "Priya K.", "item": "Old Bicycle", "price": 2500, "imageUrl": "https://placehold.co/600x400/EEE/31343C?text=Bicycle" }
+      { "id": 1, "seller": "Priya K.", "sellerContact": "9876543210", "item": "Old Bicycle", "price": 2500, "category": "Vehicles", "description": "A well-maintained hero cycle, suitable for adults. Minor scratches but fully functional.", "imageUrl": "https://placehold.co/600x400/EEE/31343C?text=Bicycle" },
+      { "id": 2, "seller": "Rohan M.", "sellerContact": "9123456789", "item": "Study Table", "price": 1500, "category": "Furniture", "description": "Wooden study table with two drawers. Perfect for students. Dimensions: 4ft x 2.5ft.", "imageUrl": "https://placehold.co/600x400/EEE/31343C?text=Study+Table" },
+      { "id": 3, "seller": "Aditya S.", "sellerContact": "9988776655", "item": "Used PS4 Console", "price": 15000, "category": "Electronics", "description": "PS4 500GB console with one controller and all necessary cables. Games not included.", "imageUrl": "https://placehold.co/600x400/EEE/31343C?text=PS4" },
+      { "id": 4, "seller": "Saksham G.", "sellerContact": "9234567890", "item": "Hardly Used Microwave", "price": 4000, "category": "Appliances", "description": "Samsung 28L microwave oven. Used for less than a year. Works perfectly.", "imageUrl": "https://placehold.co/600x400/EEE/31343C?text=Microwave" },
+      { "id": 5, "seller": "Priya K.", "sellerContact": "9876543210", "item": "Fiction Novel Set", "price": 800, "category": "Books", "description": "A set of 5 popular fiction novels. Includes books by Rowling and Martin.", "imageUrl": "https://placehold.co/600x400/EEE/31343C?text=Books" }
     ],
     "services": [
-      { "id": 1, "category": "Pre-Approved Plumbers", "name": "Rajesh Plumbing", "contact": "9876543210", "description": "24/7 plumbing services." }
+      { "id": 1, "category": "Pre-Approved Plumbers", "name": "Rajesh Plumbing", "contact": "9876543210", "description": "24/7 plumbing services. Known for quick response times.", "favorited": false },
+      { "id": 2, "category": "Home Tutors", "name": "Anita's Math Classes", "contact": "9123456789", "description": "Tutoring for students from grade 6 to 10.", "favorited": true },
+      { "id": 3, "category": "Electricians", "name": "Verma Electricals", "contact": "9988776655", "description": "All types of electrical wiring and repair.", "favorited": false },
+      { "id": 4, "category": "Maids", "name": "Sita Bai", "contact": "9234567890", "description": "Available for morning cleaning shifts. Highly recommended by B-wing.", "favorited": false }
     ],
     "gatePasses": [
         { "id": 1, "visitor": "Zomato Delivery", "type": "Delivery", "status": "Approved", "time": "1:15 PM" },
-        { "id": 2, "visitor": "Aunty Sheela", "type": "Guest", "status": "Pending", "time": "4:00 PM" }
+        { "id": 2, "visitor": "Aunty Sheela", "type": "Guest", "status": "Pending", "time": "4:00 PM" },
+        { "id": 3, "visitor": "Urban Company Cleaner", "type": "Service", "status": "Pending", "time": "5:30 PM" },
+        { "id": 4, "visitor": "Amazon Package", "type": "Delivery", "status": "Approved", "time": "Yesterday" }
     ],
     "staff": [
         { "id": 1, "name": "Mr. Singh", "role": "Security Head", "contact": "9999988888" },
-        { "id": 2, "name": "Ramu Kaka", "role": "Electrician (Society)", "contact": "9888877777" }
+        { "id": 2, "name": "Ramu Kaka", "role": "Electrician (Society)", "contact": "9888877777" },
+        { "id": 3, "name": "Sunita Sharma", "role": "Society Manager", "contact": "9777766666" }
     ],
     "complaints": [
-      { "id": 1, "category": "Roads", "description": "There's a massive pothole on the main street.", "status": "Submitted" }
+      { "id": 1, "category": "Roads", "author": "Rohan M.", "description": "There's a massive pothole on the main street near the entrance. It's dangerous for two-wheelers.", "status": "Submitted" },
+      { "id": 2, "category": "Streetlights", "author": "Priya K.", "description": "The streetlight near block C, pole number 42, has not been working for three days.", "status": "In Progress" }
     ]
   }
 }
