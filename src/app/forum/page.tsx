@@ -119,7 +119,7 @@ const ForumPage = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    className="focus:border-brand focus:ring-brand/50 w-full rounded-lg border border-gray-300 bg-slate-50 px-3 py-2 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
                     value={formData.title}
                     onChange={(e) =>
                       setFormData((prev) => ({
@@ -136,7 +136,7 @@ const ForumPage = () => {
                   </label>
                   <textarea
                     rows={4}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    className="focus:border-brand focus:ring-brand/50 w-full rounded-lg border border-gray-300 bg-slate-50 px-3 py-2 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
                     value={formData.content}
                     onChange={(e) =>
                       setFormData((prev) => ({
@@ -150,14 +150,14 @@ const ForumPage = () => {
                 <div className="flex gap-3">
                   <button
                     type="submit"
-                    className="flex-1 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className="flex-1 transform rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-all duration-200 hover:scale-105 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none active:scale-95"
                   >
                     Create Post
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className="flex-1 transform rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:scale-105 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none active:scale-95"
                   >
                     Cancel
                   </button>
@@ -183,7 +183,7 @@ const ForumPage = () => {
               {/* Create New Post Button */}
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex transform items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-all duration-200 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:outline-none active:scale-95"
               >
                 <svg
                   className="h-5 w-5"
@@ -205,19 +205,19 @@ const ForumPage = () => {
 
           {/* Forum Stats */}
           <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
               <h3 className="text-2xl font-bold text-gray-900">
                 {posts.length}
               </h3>
               <p className="text-sm text-gray-600">Total Posts</p>
             </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
               <h3 className="text-2xl font-bold text-gray-900">
                 {new Set(posts.map((post) => post.author)).size}
               </h3>
               <p className="text-sm text-gray-600">Active Members</p>
             </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
               <h3 className="text-2xl font-bold text-gray-900">
                 {
                   posts.filter((post) => {
@@ -229,7 +229,7 @@ const ForumPage = () => {
               </h3>
               <p className="text-sm text-gray-600">Today&apos;s Posts</p>
             </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
               <h3 className="text-2xl font-bold text-gray-900">
                 {
                   posts.filter((post) => {
@@ -253,7 +253,7 @@ const ForumPage = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setFilter("all")}
-                  className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
+                  className={`transform rounded-md border px-3 py-1.5 text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
                     filter === "all"
                       ? "border-blue-500 bg-blue-50 text-blue-700"
                       : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
@@ -263,7 +263,7 @@ const ForumPage = () => {
                 </button>
                 <button
                   onClick={() => setFilter("recent")}
-                  className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
+                  className={`transform rounded-md border px-3 py-1.5 text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
                     filter === "recent"
                       ? "border-blue-500 bg-blue-50 text-blue-700"
                       : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
@@ -292,10 +292,11 @@ const ForumPage = () => {
                     }}
                     whileHover={{
                       scale: 1.02,
+                      y: -4,
                       transition: { duration: 0.2 },
                     }}
                     layout
-                    className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md"
+                    className="cursor-pointer rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
                   >
                     {/* Post Header */}
                     <div className="mb-4">
