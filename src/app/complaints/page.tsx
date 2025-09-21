@@ -4,12 +4,24 @@ import { Inter } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
 import AuthGuard from "~/components/AuthGuard";
+import { useAuth } from "~/context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
+
+// TypeScript interface for complaints
+interface Complaint {
+  id: number;
+  category: string;
+  description: string;
+  status: string;
+  timestamp: string;
+  author: string;
+}
 
 // For demo purposes, we'll use a simple state management
 // In a real app, this would integrate with your backend API
 const ComplaintsPage = () => {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     category: "",
     description: "",
@@ -19,13 +31,14 @@ const ComplaintsPage = () => {
   const [successMessage, setSuccessMessage] = useState("");
 
   // Mock complaints data - in a real app, this would come from the server
-  const complaints = [
+  const [complaints, setComplaints] = useState<Complaint[]>([
     {
       id: 1,
       category: "Roads",
       description: "There's a massive pothole on the main street.",
       status: "Submitted",
       timestamp: "2025-09-21T08:00:00Z",
+      author: "John Doe",
     },
     {
       id: 2,
@@ -33,6 +46,7 @@ const ComplaintsPage = () => {
       description: "No water supply since yesterday morning in Block A.",
       status: "In Progress",
       timestamp: "2025-09-20T15:30:00Z",
+      author: "Jane Smith",
     },
     {
       id: 3,
@@ -40,6 +54,7 @@ const ComplaintsPage = () => {
       description: "Street lights are not working in the main pathway.",
       status: "Resolved",
       timestamp: "2025-09-19T10:15:00Z",
+      author: "Mike Johnson",
     },
     {
       id: 4,
@@ -47,8 +62,9 @@ const ComplaintsPage = () => {
       description: "Construction noise starting very early in the morning.",
       status: "Submitted",
       timestamp: "2025-09-18T07:45:00Z",
+      author: "Sarah Wilson",
     },
-  ];
+  ]);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -68,6 +84,18 @@ const ComplaintsPage = () => {
 
     // Simulate API call
     setTimeout(() => {
+      const newComplaint: Complaint = {
+        id: complaints.length + 1,
+        category: formData.category,
+        description: formData.description,
+        status: "Submitted",
+        timestamp: new Date().toISOString(),
+        author: user?.name ?? "Anonymous User",
+      };
+
+      // Add new complaint to the beginning of the list
+      setComplaints([newComplaint, ...complaints]);
+
       setSuccessMessage("Your complaint has been submitted successfully!");
       setFormData({ category: "", description: "", urgency: "medium" });
       setIsSubmitting(false);
@@ -340,9 +368,11 @@ const ComplaintsPage = () => {
                       <p className="mb-2 text-gray-600">
                         {complaint.description}
                       </p>
-                      <p className="text-sm text-gray-500">
-                        {formatTimestamp(complaint.timestamp)}
-                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span>By {complaint.author}</span>
+                        <span>•</span>
+                        <span>{formatTimestamp(complaint.timestamp)}</span>
+                      </div>
                     </div>
                     <button className="self-start rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
                       View Details

@@ -1,5 +1,8 @@
+"use client";
+
 import { Inter } from "next/font/google";
 import Link from "next/link";
+import { useState } from "react";
 import db from "~/data/mock-db.json";
 import AuthGuard from "~/components/AuthGuard";
 
@@ -8,6 +11,37 @@ const inter = Inter({ subsets: ["latin"] });
 const StaffContactsPage = () => {
   const society = db.elysium123;
   const staffMembers = society.staff;
+  const [toast, setToast] = useState("");
+  const [activeChatId, setActiveChatId] = useState<number | null>(null);
+
+  // Copy to clipboard function with fallback for iframe environments
+  const copyToClipboard = async (text: string) => {
+    try {
+      // Try modern clipboard API first
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        // Fallback for iframe or insecure contexts
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-999999px";
+        textArea.style.top = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        textArea.remove();
+      }
+
+      setToast(`Contact number copied: ${text}`);
+      setTimeout(() => setToast(""), 3000);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+      setToast("Failed to copy contact number");
+      setTimeout(() => setToast(""), 3000);
+    }
+  };
 
   // Function to format phone number for display
   const formatPhoneNumber = (phone: string) => {
@@ -271,10 +305,20 @@ const StaffContactsPage = () => {
 
                     {/* Additional Contact Options */}
                     <div className="flex gap-2">
-                      <button className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
-                        Send Message
+                      <button
+                        onClick={() => copyToClipboard(staff.contact)}
+                        className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                      >
+                        Copy Number
                       </button>
-                      <button className="rounded-md border border-gray-300 bg-white p-1.5 text-gray-600 transition-colors hover:bg-gray-50">
+                      <button
+                        onClick={() =>
+                          setActiveChatId(
+                            activeChatId === staff.id ? null : staff.id,
+                          )
+                        }
+                        className="rounded-md border border-gray-300 bg-white p-1.5 text-gray-600 transition-colors hover:bg-gray-50"
+                      >
                         <svg
                           className="h-4 w-4"
                           fill="none"
@@ -356,6 +400,83 @@ const StaffContactsPage = () => {
             </div>
           </div>
         </div>
+
+        {/* Toast Notification */}
+        {toast && (
+          <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 transform">
+            <div className="rounded-lg border border-green-300 bg-green-100 px-4 py-2 text-green-800 shadow-lg">
+              <div className="flex items-center gap-2">
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                {toast}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Chatbox */}
+        {activeChatId !== null && (
+          <div className="fixed right-4 bottom-4 z-50 w-80 rounded-lg border border-gray-300 bg-white shadow-xl">
+            <div className="flex items-center justify-between border-b border-gray-200 p-4">
+              <div className="flex items-center gap-2">
+                <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                <h3 className="font-semibold text-gray-900">
+                  Chat with{" "}
+                  {staffMembers.find((s) => s.id === activeChatId)?.name}
+                </h3>
+              </div>
+              <button
+                onClick={() => setActiveChatId(null)}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="h-60 overflow-y-auto p-4">
+              <div className="mb-4 rounded-lg bg-gray-100 p-3">
+                <p className="text-sm text-gray-600">
+                  Hello! This is a demo chatbox. In a real application, this
+                  would connect to a messaging system.
+                </p>
+              </div>
+            </div>
+            <div className="border-t border-gray-200 p-4">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Type your message..."
+                  className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                />
+                <button className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700">
+                  Send
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </AuthGuard>
   );
