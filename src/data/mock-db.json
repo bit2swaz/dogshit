@@ -6,12 +6,10 @@
       { "id": 2, "author": "Saksham G.", "title": "Weekly potluck this Saturday!", "content": "Everyone is invited...", "timestamp": "2025-09-20T19:30:00Z" }
     ],
     "marketplace": [
-      { "id": 1, "seller": "Priya K.", "item": "Old Bicycle", "price": 2500, "imageUrl": "https://placehold.co/600x400/EEE/31343C?text=Bicycle" },
-      { "id": 2, "seller": "Rohan M.", "item": "Study Table", "price": 1500, "imageUrl": "https://placehold.co/600x400/EEE/31343C?text=Study+Table" }
+      { "id": 1, "seller": "Priya K.", "item": "Old Bicycle", "price": 2500, "imageUrl": "https://placehold.co/600x400/EEE/31343C?text=Bicycle" }
     ],
     "services": [
-      { "id": 1, "category": "Pre-Approved Plumbers", "name": "Rajesh Plumbing", "contact": "9876543210", "description": "24/7 plumbing services." },
-      { "id": 2, "category": "Home Tutors", "name": "Anita's Math Classes", "contact": "9123456789", "description": "Tutoring for students from grade 6 to 10." }
+      { "id": 1, "category": "Pre-Approved Plumbers", "name": "Rajesh Plumbing", "contact": "9876543210", "description": "24/7 plumbing services." }
     ],
     "gatePasses": [
         { "id": 1, "visitor": "Zomato Delivery", "type": "Delivery", "status": "Approved", "time": "1:15 PM" },
