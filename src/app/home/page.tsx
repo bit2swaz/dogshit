@@ -1,5 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import { Inter } from "next/font/google";
+import { motion } from "framer-motion";
 import db from "~/data/mock-db.json";
 import AuthGuard from "~/components/AuthGuard";
 
@@ -23,40 +26,80 @@ const HomePage = () => {
           </div>
 
           {/* Summary Stats */}
-          <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+          <motion.div 
+            className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, staggerChildren: 0.1 }}
+          >
+            <motion.div 
+              className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
+              whileHover={{ y: -2 }}
+            >
               <h3 className="text-2xl font-bold text-gray-900">
                 {society.forum.length}
               </h3>
               <p className="text-sm text-gray-600">Forum Posts</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            </motion.div>
+            <motion.div 
+              className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              whileHover={{ y: -2 }}
+            >
               <h3 className="text-2xl font-bold text-gray-900">
                 {society.marketplace.length}
               </h3>
               <p className="text-sm text-gray-600">Marketplace Items</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            </motion.div>
+            <motion.div 
+              className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              whileHover={{ y: -2 }}
+            >
               <h3 className="text-2xl font-bold text-gray-900">
                 {society.gatePasses.length}
               </h3>
               <p className="text-sm text-gray-600">Gate Passes</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            </motion.div>
+            <motion.div 
+              className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 cursor-pointer"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
+              whileHover={{ y: -2 }}
+            >
               <h3 className="text-2xl font-bold text-gray-900">
                 {society.complaints.length}
               </h3>
               <p className="text-sm text-gray-600">Complaints</p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
           {/* Dashboard Cards - Responsive Grid */}
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+          <motion.div 
+            className="grid grid-cols-2 gap-4 md:grid-cols-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5, staggerChildren: 0.15 }}
+          >
             {/* Recent Announcements Card */}
-            <Link
-              href="/forum"
-              className="group hover:border-brand rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.6 }}
+              whileHover={{ y: -4 }}
             >
+              <Link
+                href="/forum"
+                className="group rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-xl hover:-translate-y-1 hover:border-brand cursor-pointer block"
+              >
               <div className="mb-4">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 group-hover:bg-blue-100">
                   <svg
@@ -94,12 +137,19 @@ const HomePage = () => {
                 ))}
               </div>
             </Link>
+            </motion.div>
 
             {/* New Marketplace Items Card */}
-            <Link
-              href="/marketplace"
-              className="group hover:border-brand rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.75 }}
+              whileHover={{ y: -4 }}
             >
+              <Link
+                href="/marketplace"
+                className="group rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-xl hover:-translate-y-1 hover:border-brand cursor-pointer block"
+              >
               <div className="mb-4">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-green-50 group-hover:bg-green-100">
                   <svg
@@ -139,12 +189,19 @@ const HomePage = () => {
                 ))}
               </div>
             </Link>
+            </motion.div>
 
             {/* Recent Gate Activity Card */}
-            <Link
-              href="/gate"
-              className="group hover:border-brand col-span-2 rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md md:col-span-1"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.9 }}
+              whileHover={{ y: -4 }}
             >
+              <Link
+                href="/gate"
+                className="group col-span-2 rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-xl hover:-translate-y-1 hover:border-brand cursor-pointer md:col-span-1 block"
+              >
               <div className="mb-4">
                 <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-purple-50 group-hover:bg-purple-100">
                   <svg
@@ -184,7 +241,8 @@ const HomePage = () => {
                 ))}
               </div>
             </Link>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </AuthGuard>

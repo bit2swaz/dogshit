@@ -410,7 +410,7 @@ const MarketplacePage = () => {
               {/* Sell Item Button */}
               <button
                 onClick={() => setIsSellModalOpen(true)}
-                className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex transform items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-all duration-200 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:outline-none active:scale-95"
               >
                 <svg
                   className="h-5 w-5"
@@ -432,25 +432,25 @@ const MarketplacePage = () => {
 
           {/* Marketplace Stats */}
           <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
               <h3 className="text-2xl font-bold text-gray-900">
                 {items.length}
               </h3>
               <p className="text-sm text-gray-600">Items Listed</p>
             </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
               <h3 className="text-2xl font-bold text-gray-900">
                 {new Set(items.map((item) => item.seller)).size}
               </h3>
               <p className="text-sm text-gray-600">Active Sellers</p>
             </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
               <h3 className="text-2xl font-bold text-gray-900">
                 {new Set(items.map((item) => item.category)).size}
               </h3>
               <p className="text-sm text-gray-600">Categories</p>
             </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
               <h3 className="text-2xl font-bold text-gray-900">
                 {Math.round(
                   items.reduce((sum, item) => sum + item.price, 0) /
@@ -468,7 +468,7 @@ const MarketplacePage = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setCategoryFilter("all")}
-                className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
+                className={`transform rounded-md border px-3 py-1.5 text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
                   categoryFilter === "all"
                     ? "border-blue-500 bg-blue-50 text-blue-700"
                     : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
@@ -480,7 +480,7 @@ const MarketplacePage = () => {
                 <button
                   key={category}
                   onClick={() => setCategoryFilter(category)}
-                  className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
+                  className={`transform rounded-md border px-3 py-1.5 text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
                     categoryFilter === category
                       ? "border-blue-500 bg-blue-50 text-blue-700"
                       : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
@@ -496,7 +496,7 @@ const MarketplacePage = () => {
               <select
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
-                className="focus:border-brand focus:ring-brand rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm focus:ring-1 focus:outline-none"
+                className="focus:border-brand focus:ring-brand/50 rounded-md border border-gray-300 bg-slate-50 px-3 py-1.5 text-sm transition-all duration-200 focus:bg-white focus:ring-1 focus:outline-none"
               >
                 <option value="latest">Latest</option>
                 <option value="price-low-high">Price: Low to High</option>
@@ -511,7 +511,7 @@ const MarketplacePage = () => {
               <div
                 key={item.id}
                 onClick={() => handleItemClick(item)}
-                className="cursor-pointer overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 hover:shadow-xl"
+                className="cursor-pointer overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
               >
                 {/* Image Container with 1:1 Aspect Ratio */}
                 <div className="relative aspect-square overflow-hidden">

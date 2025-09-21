@@ -77,7 +77,7 @@ const LoginPage = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="focus:ring-brand w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-transparent focus:ring-2 focus:outline-none"
+                className="focus:border-brand focus:ring-brand/50 w-full rounded-md border border-gray-300 bg-slate-50 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
                 placeholder="Enter your full name"
               />
             </div>
@@ -95,7 +95,7 @@ const LoginPage = () => {
                 name="age"
                 value={formData.age}
                 onChange={handleInputChange}
-                className="focus:ring-brand w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-transparent focus:ring-2 focus:outline-none"
+                className="focus:border-brand focus:ring-brand/50 w-full rounded-md border border-gray-300 bg-slate-50 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
                 placeholder="Enter your age"
                 min="1"
                 max="120"
@@ -115,14 +115,14 @@ const LoginPage = () => {
                 name="societyCode"
                 value={formData.societyCode}
                 onChange={handleInputChange}
-                className="focus:ring-brand w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-transparent focus:ring-2 focus:outline-none"
+                className="focus:border-brand focus:ring-brand/50 w-full rounded-md border border-gray-300 bg-slate-50 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
                 placeholder="Enter your society code"
               />
             </div>
 
             <button
               type="submit"
-              className="bg-brand hover:bg-brand-dark focus:ring-brand w-full rounded-md px-4 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+              className="bg-brand hover:bg-brand-dark focus:ring-brand w-full transform rounded-md px-4 py-3 font-semibold text-white transition-all duration-200 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:outline-none active:scale-95"
             >
               Login
             </button>

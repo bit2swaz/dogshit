@@ -69,7 +69,10 @@ const Navbar = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="text-xl font-bold text-gray-900">
+            <Link
+              href="/"
+              className="text-xl font-bold text-gray-900 transition-all duration-200 hover:scale-105"
+            >
               NeighborhoodHub
             </Link>
           </div>
@@ -83,7 +86,7 @@ const Navbar = () => {
                     <Link
                       key={link.name}
                       href={link.href}
-                      className="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 hover:bg-gray-50 hover:text-gray-900"
+                      className="rounded-md px-3 py-2 text-sm font-medium text-gray-600 transition-all duration-200 hover:scale-105 hover:bg-gray-50 hover:text-gray-900"
                     >
                       {link.name}
                     </Link>
@@ -97,7 +100,7 @@ const Navbar = () => {
               <div className="relative hidden md:block">
                 <button
                   onClick={toggleProfileDropdown}
-                  className="focus:ring-brand flex items-center space-x-2 rounded-md bg-gray-50 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                  className="focus:ring-brand flex transform items-center space-x-2 rounded-md bg-gray-50 px-3 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:scale-105 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:outline-none active:scale-95"
                 >
                   <div className="bg-brand flex h-8 w-8 items-center justify-center rounded-full text-white">
                     {user.name.charAt(0).toUpperCase()}
@@ -145,7 +148,7 @@ const Navbar = () => {
                             closeProfileDropdown();
                             // Add settings functionality later
                           }}
-                          className="flex w-full items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                          className="flex w-full transform items-center px-4 py-2 text-sm text-gray-700 transition-all duration-200 hover:scale-105 hover:bg-gray-100 active:scale-95"
                         >
                           <svg
                             className="mr-3 h-4 w-4"
@@ -170,7 +173,7 @@ const Navbar = () => {
                         </button>
                         <button
                           onClick={handleLogout}
-                          className="flex w-full items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+                          className="flex w-full transform items-center px-4 py-2 text-sm text-red-600 transition-all duration-200 hover:scale-105 hover:bg-red-50 active:scale-95"
                         >
                           <svg
                             className="mr-3 h-4 w-4"
@@ -199,7 +202,7 @@ const Navbar = () => {
               <div className="md:hidden">
                 <button
                   onClick={toggleMenu}
-                  className="inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-500 focus:outline-none focus:ring-inset"
+                  className="inline-flex transform items-center justify-center rounded-md p-2 text-gray-600 transition-all duration-200 hover:scale-105 hover:bg-gray-100 hover:text-gray-900 focus:ring-2 focus:ring-gray-500 focus:outline-none focus:ring-inset active:scale-95"
                   aria-expanded="false"
                 >
                   <span className="sr-only">Open main menu</span>

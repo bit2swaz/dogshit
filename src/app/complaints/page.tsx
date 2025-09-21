@@ -195,7 +195,7 @@ const ComplaintsPage = () => {
                   value={formData.category}
                   onChange={handleInputChange}
                   required
-                  className="focus:border-brand focus:ring-brand focus:ring-opacity-20 w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 focus:bg-white focus:ring-2 focus:outline-none"
+                  className="focus:border-brand focus:ring-brand/50 w-full rounded-lg border border-gray-300 bg-slate-50 px-4 py-3 text-gray-900 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
                 >
                   <option value="">Select a category</option>
                   <option value="Water Supply">Water Supply</option>
@@ -225,7 +225,7 @@ const ComplaintsPage = () => {
                   required
                   rows={4}
                   placeholder="Please provide detailed information about your complaint..."
-                  className="focus:border-brand focus:ring-brand focus:ring-opacity-20 w-full resize-none rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 focus:bg-white focus:ring-2 focus:outline-none"
+                  className="focus:border-brand focus:ring-brand/50 w-full resize-none rounded-lg border border-gray-300 bg-slate-50 px-4 py-3 text-gray-900 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
                 />
               </div>
 
@@ -242,7 +242,7 @@ const ComplaintsPage = () => {
                   name="urgency"
                   value={formData.urgency}
                   onChange={handleInputChange}
-                  className="focus:border-brand focus:ring-brand focus:ring-opacity-20 w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 focus:bg-white focus:ring-2 focus:outline-none"
+                  className="focus:border-brand focus:ring-brand/50 w-full rounded-lg border border-gray-300 bg-slate-50 px-4 py-3 text-gray-900 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
                 >
                   <option value="low">Low - Can wait a few days</option>
                   <option value="medium">
@@ -263,7 +263,7 @@ const ComplaintsPage = () => {
                   !formData.category.trim() ||
                   !formData.description.trim()
                 }
-                className="bg-brand hover:bg-brand-dark focus:ring-brand w-full rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:bg-gray-400"
+                className="bg-brand hover:bg-brand-dark focus:ring-brand w-full transform rounded-lg px-6 py-3 font-semibold text-white transition-all duration-200 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:outline-none active:scale-95 disabled:transform-none disabled:cursor-not-allowed disabled:bg-gray-400"
               >
                 {isSubmitting ? (
                   <div className="flex items-center justify-center gap-2">
@@ -505,11 +505,11 @@ const ComplaintsPage = () => {
                 <div className="flex gap-3 border-t border-gray-200 pt-4">
                   <button
                     onClick={() => setSelectedComplaint(null)}
-                    className="flex-1 rounded-lg border border-gray-300 px-4 py-2 font-medium text-gray-700 hover:bg-gray-50"
+                    className="flex-1 transform rounded-lg border border-gray-300 px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:scale-105 hover:bg-gray-50 active:scale-95"
                   >
                     Close
                   </button>
-                  <button className="flex-1 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700">
+                  <button className="flex-1 transform rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-all duration-200 hover:scale-105 hover:bg-blue-700 active:scale-95">
                     Track Status
                   </button>
                 </div>

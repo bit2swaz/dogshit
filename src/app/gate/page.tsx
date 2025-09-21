@@ -171,7 +171,7 @@ const GatePage = () => {
                   </label>
                   <input
                     type="text"
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    className="focus:border-brand focus:ring-brand/50 w-full rounded-lg border border-gray-300 bg-slate-50 px-3 py-2 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
                     value={formData.visitor}
                     onChange={(e) =>
                       setFormData((prev) => ({
@@ -188,7 +188,7 @@ const GatePage = () => {
                     Visit Type
                   </label>
                   <select
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    className="focus:border-brand focus:ring-brand/50 w-full rounded-lg border border-gray-300 bg-slate-50 px-3 py-2 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
                     value={formData.type}
                     onChange={(e) =>
                       setFormData((prev) => ({ ...prev, type: e.target.value }))
@@ -204,14 +204,14 @@ const GatePage = () => {
                 <div className="flex gap-3">
                   <button
                     type="submit"
-                    className="flex-1 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className="flex-1 transform rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-all duration-200 hover:scale-105 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none active:scale-95"
                   >
                     Pre-Approve
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsModalOpen(false)}
-                    className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    className="flex-1 transform rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:scale-105 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none active:scale-95"
                   >
                     Cancel
                   </button>
