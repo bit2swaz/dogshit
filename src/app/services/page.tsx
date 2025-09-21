@@ -1,91 +1,169 @@
+"use client";
+
+import { useState } from "react";
 import { Inter } from "next/font/google";
 import db from "~/data/mock-db.json";
 import AuthGuard from "~/components/AuthGuard";
 
 const inter = Inter({ subsets: ["latin"] });
 
+interface Service {
+  id: number;
+  category: string;
+  name: string;
+  contact: string;
+  description: string;
+  favorited: boolean;
+}
+
 const ServicesPage = () => {
   const society = db.elysium123;
 
   // Enhanced services data for better demonstration
-  // In a real app, this would come from the database
-  const servicesData = [
+  const initialServicesData: Service[] = [
     ...society.services,
     // Adding more services to demonstrate category grouping
     {
-      id: 2,
+      id: 5,
       category: "Pre-Approved Plumbers",
       name: "Sharma Water Works",
       contact: "9123456789",
       description: "Expert in pipe fitting and water tank cleaning.",
+      favorited: false,
     },
     {
-      id: 3,
+      id: 6,
       category: "Pre-Approved Electricians",
       name: "Modern Electric Solutions",
       contact: "9234567890",
       description: "Residential and commercial electrical work.",
+      favorited: false,
     },
     {
-      id: 4,
+      id: 7,
       category: "Pre-Approved Electricians",
       name: "PowerFix Services",
       contact: "9345678901",
       description: "Emergency electrical repairs and installations.",
+      favorited: false,
     },
     {
-      id: 5,
+      id: 8,
       category: "Cleaning Services",
       name: "SparkleClean",
       contact: "9456789012",
       description: "Deep cleaning for homes and offices.",
+      favorited: false,
     },
     {
-      id: 6,
+      id: 9,
       category: "Cleaning Services",
       name: "Fresh Home Cleaners",
       contact: "9567890123",
       description: "Eco-friendly cleaning solutions.",
+      favorited: false,
     },
     {
-      id: 7,
+      id: 10,
       category: "Home Maintenance",
       name: "FixIt All",
       contact: "9678901234",
       description: "General repairs and maintenance services.",
+      favorited: false,
     },
     {
-      id: 8,
+      id: 11,
       category: "Home Maintenance",
       name: "Reliable Repairs",
       contact: "9789012345",
       description: "Carpentry, painting, and minor repairs.",
+      favorited: false,
     },
     {
-      id: 9,
+      id: 12,
       category: "Security Services",
       name: "Guardian Security",
       contact: "9890123456",
       description: "24/7 security and surveillance solutions.",
+      favorited: false,
     },
     {
-      id: 10,
+      id: 13,
       category: "Delivery Services",
       name: "QuickDelivery",
       contact: "9901234567",
       description: "Fast and reliable delivery within the society.",
+      favorited: false,
     },
   ];
 
+  // State management
+  const [services, setServices] = useState<Service[]>(initialServicesData);
+  const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+
+  // Helper functions
+  const toggleFavorite = (serviceId: number) => {
+    setServices(
+      services.map((service) =>
+        service.id === serviceId
+          ? { ...service, favorited: !service.favorited }
+          : service,
+      ),
+    );
+  };
+
+  // Copy to clipboard function that works in iframes
+  const copyToClipboard = async (text: string) => {
+    try {
+      // Modern clipboard API
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+        showToastMessage("Number copied to clipboard!");
+        return;
+      }
+
+      // Fallback for older browsers or non-secure contexts
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+
+      try {
+        document.execCommand("copy");
+        showToastMessage("Number copied to clipboard!");
+      } catch (err) {
+        console.error("Failed to copy: ", err);
+        showToastMessage("Failed to copy number");
+      } finally {
+        document.body.removeChild(textArea);
+      }
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+      showToastMessage("Failed to copy number");
+    }
+  };
+
+  // Show toast message
+  const showToastMessage = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
   // Group services by category
-  const servicesByCategory = servicesData.reduce(
+  const servicesByCategory = services.reduce(
     (groups, service) => {
       const category = service.category;
       groups[category] ??= [];
       groups[category].push(service);
       return groups;
     },
-    {} as Record<string, typeof servicesData>,
+    {} as Record<string, Service[]>,
   );
 
   // Function to format phone number for calling
@@ -205,6 +283,13 @@ const ServicesPage = () => {
   return (
     <AuthGuard>
       <div className={`min-h-screen bg-slate-50 ${inter.className}`}>
+        {/* Toast */}
+        {showToast && (
+          <div className="fixed top-4 right-4 z-50 rounded-lg bg-green-500 px-6 py-3 text-white shadow-lg">
+            {toastMessage}
+          </div>
+        )}
+
         <div className="container mx-auto px-4 py-8">
           {/* Header Section */}
           <div className="mb-8">
@@ -242,7 +327,7 @@ const ServicesPage = () => {
           <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
-                {servicesData.length}
+                {services.length}
               </h3>
               <p className="text-sm text-gray-600">Total Services</p>
             </div>
@@ -255,7 +340,7 @@ const ServicesPage = () => {
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
                 {
-                  servicesData.filter(
+                  services.filter(
                     (service) =>
                       service.description.includes("24/7") ||
                       service.description.includes("Emergency"),
@@ -267,8 +352,7 @@ const ServicesPage = () => {
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
                 {Math.round(
-                  (servicesData.length /
-                    Object.keys(servicesByCategory).length) *
+                  (services.length / Object.keys(servicesByCategory).length) *
                     10,
                 ) / 10}
               </h3>
@@ -357,23 +441,45 @@ const ServicesPage = () => {
 
                       {/* Additional Actions */}
                       <div className="mt-3 flex gap-2">
-                        <button className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
-                          View Details
+                        <button
+                          onClick={() => copyToClipboard(service.contact)}
+                          className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                        >
+                          Copy Number
                         </button>
-                        <button className="rounded-md border border-gray-300 bg-white p-1.5 text-gray-600 transition-colors hover:bg-gray-50">
-                          <svg
-                            className="h-4 w-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                            />
-                          </svg>
+                        <button
+                          onClick={() => toggleFavorite(service.id)}
+                          className="rounded-md border border-gray-300 bg-white p-1.5 text-gray-600 transition-colors hover:bg-gray-50"
+                        >
+                          {service.favorited ? (
+                            <svg
+                              className="h-4 w-4 text-red-500"
+                              fill="currentColor"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              className="h-4 w-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                              />
+                            </svg>
+                          )}
                         </button>
                       </div>
                     </div>
@@ -384,7 +490,7 @@ const ServicesPage = () => {
           </div>
 
           {/* Empty State */}
-          {servicesData.length === 0 && (
+          {services.length === 0 && (
             <div className="rounded-lg border border-gray-200 bg-white p-12 text-center">
               <svg
                 className="mx-auto h-12 w-12 text-gray-400"
