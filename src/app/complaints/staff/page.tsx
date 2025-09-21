@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import db from "~/data/mock-db.json";
+import AuthGuard from "~/components/AuthGuard";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -110,27 +111,72 @@ const StaffContactsPage = () => {
   };
 
   return (
-    <div className={`min-h-screen bg-slate-50 ${inter.className}`}>
-      <div className="container mx-auto px-4 py-8">
-        {/* Header Section */}
-        <div className="mb-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                Official Staff Contacts
-              </h1>
-              <p className="text-gray-600">
-                Get in touch with our management and maintenance team
-              </p>
-            </div>
+    <AuthGuard>
+      <div className={`min-h-screen bg-slate-50 ${inter.className}`}>
+        <div className="container mx-auto px-4 py-8">
+          {/* Header Section */}
+          <div className="mb-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">
+                  Official Staff Contacts
+                </h1>
+                <p className="text-gray-600">
+                  Get in touch with our management and maintenance team
+                </p>
+              </div>
 
-            {/* Back Button */}
-            <Link
-              href="/complaints"
-              className="focus:ring-brand inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none"
-            >
+              {/* Back Button */}
+              <Link
+                href="/complaints"
+                className="focus:ring-brand inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+              >
+                <svg
+                  className="h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  />
+                </svg>
+                Back to Complaints
+              </Link>
+            </div>
+          </div>
+
+          {/* Staff Stats */}
+          <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+              <h3 className="text-2xl font-bold text-gray-900">
+                {staffMembers.length}
+              </h3>
+              <p className="text-sm text-gray-600">Staff Members</p>
+            </div>
+            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+              <h3 className="text-2xl font-bold text-gray-900">24/7</h3>
+              <p className="text-sm text-gray-600">Availability</p>
+            </div>
+            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
+              <h3 className="text-2xl font-bold text-gray-900">
+                {
+                  new Set(staffMembers.map((staff) => staff.role.split(" ")[0]))
+                    .size
+                }
+              </h3>
+              <p className="text-sm text-gray-600">Departments</p>
+            </div>
+          </div>
+
+          {/* Emergency Notice */}
+          <div className="mb-8 rounded-lg border border-red-200 bg-red-50 p-4">
+            <div className="flex items-start gap-3">
               <svg
-                className="h-4 w-4"
+                className="mt-0.5 h-6 w-6 text-red-600"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -139,220 +185,179 @@ const StaffContactsPage = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z"
                 />
               </svg>
-              Back to Complaints
-            </Link>
-          </div>
-        </div>
-
-        {/* Staff Stats */}
-        <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-            <h3 className="text-2xl font-bold text-gray-900">
-              {staffMembers.length}
-            </h3>
-            <p className="text-sm text-gray-600">Staff Members</p>
-          </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-            <h3 className="text-2xl font-bold text-gray-900">24/7</h3>
-            <p className="text-sm text-gray-600">Availability</p>
-          </div>
-          <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-            <h3 className="text-2xl font-bold text-gray-900">
-              {
-                new Set(staffMembers.map((staff) => staff.role.split(" ")[0]))
-                  .size
-              }
-            </h3>
-            <p className="text-sm text-gray-600">Departments</p>
-          </div>
-        </div>
-
-        {/* Emergency Notice */}
-        <div className="mb-8 rounded-lg border border-red-200 bg-red-50 p-4">
-          <div className="flex items-start gap-3">
-            <svg
-              className="mt-0.5 h-6 w-6 text-red-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z"
-              />
-            </svg>
-            <div>
-              <h3 className="font-semibold text-red-800">Emergency Contact</h3>
-              <p className="text-sm text-red-700">
-                For life-threatening emergencies, please call{" "}
-                <strong>112</strong> or your local emergency services first.
-              </p>
+              <div>
+                <h3 className="font-semibold text-red-800">
+                  Emergency Contact
+                </h3>
+                <p className="text-sm text-red-700">
+                  For life-threatening emergencies, please call{" "}
+                  <strong>112</strong> or your local emergency services first.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Staff Members List */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-gray-900">
-            Contact Information
-          </h2>
+          {/* Staff Members List */}
+          <div className="space-y-4">
+            <h2 className="text-xl font-semibold text-gray-900">
+              Contact Information
+            </h2>
 
-          <div className="grid gap-4 md:grid-cols-2">
-            {staffMembers.map((staff) => (
-              <div
-                key={staff.id}
-                className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md"
-              >
-                {/* Staff Header */}
-                <div className="mb-4 flex items-start gap-4">
-                  <div className="rounded-full bg-gray-100 p-3">
-                    {getRoleIcon(staff.role)}
+            <div className="grid gap-4 md:grid-cols-2">
+              {staffMembers.map((staff) => (
+                <div
+                  key={staff.id}
+                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md"
+                >
+                  {/* Staff Header */}
+                  <div className="mb-4 flex items-start gap-4">
+                    <div className="rounded-full bg-gray-100 p-3">
+                      {getRoleIcon(staff.role)}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {staff.name}
+                      </h3>
+                      <p className="text-gray-600">{staff.role}</p>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900">
-                      {staff.name}
-                    </h3>
-                    <p className="text-gray-600">{staff.role}</p>
-                  </div>
-                </div>
 
-                {/* Contact Information */}
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <svg
-                        className="h-4 w-4 text-gray-500"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                  {/* Contact Information */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <svg
+                          className="h-4 w-4 text-gray-500"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                          />
+                        </svg>
+                        <span className="text-sm text-gray-600">
+                          {formatPhoneNumber(staff.contact)}
+                        </span>
+                      </div>
+
+                      {/* Tappable Contact Button */}
+                      <a
+                        href={`tel:${staff.contact}`}
+                        className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-1 rounded-md px-4 py-2 text-sm font-medium text-white transition-colors focus:ring-2 focus:ring-offset-1 focus:outline-none"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                        />
-                      </svg>
-                      <span className="text-sm text-gray-600">
-                        {formatPhoneNumber(staff.contact)}
-                      </span>
+                        <svg
+                          className="h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                          />
+                        </svg>
+                        Call Now
+                      </a>
                     </div>
 
-                    {/* Tappable Contact Button */}
-                    <a
-                      href={`tel:${staff.contact}`}
-                      className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-1 rounded-md px-4 py-2 text-sm font-medium text-white transition-colors focus:ring-2 focus:ring-offset-1 focus:outline-none"
-                    >
-                      <svg
-                        className="h-4 w-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                        />
-                      </svg>
-                      Call Now
-                    </a>
+                    {/* Additional Contact Options */}
+                    <div className="flex gap-2">
+                      <button className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
+                        Send Message
+                      </button>
+                      <button className="rounded-md border border-gray-300 bg-white p-1.5 text-gray-600 transition-colors hover:bg-gray-50">
+                        <svg
+                          className="h-4 w-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
 
-                  {/* Additional Contact Options */}
-                  <div className="flex gap-2">
-                    <button className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
-                      Send Message
-                    </button>
-                    <button className="rounded-md border border-gray-300 bg-white p-1.5 text-gray-600 transition-colors hover:bg-gray-50">
-                      <svg
-                        className="h-4 w-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                        />
-                      </svg>
-                    </button>
+                  {/* Availability Indicator */}
+                  <div className="mt-4 flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                    <span className="text-xs text-gray-500">
+                      Available for contact
+                    </span>
                   </div>
                 </div>
-
-                {/* Availability Indicator */}
-                <div className="mt-4 flex items-center gap-2">
-                  <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                  <span className="text-xs text-gray-500">
-                    Available for contact
-                  </span>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Empty State */}
-        {staffMembers.length === 0 && (
-          <div className="rounded-lg border border-gray-200 bg-white p-12 text-center">
-            <svg
-              className="mx-auto h-12 w-12 text-gray-400"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg>
-            <h3 className="mt-4 text-lg font-medium text-gray-900">
-              No staff contacts available
-            </h3>
-            <p className="mt-2 text-gray-600">
-              Staff contact information will be displayed here when available.
-            </p>
-          </div>
-        )}
-
-        {/* Additional Information */}
-        <div className="mt-8 rounded-lg border border-blue-200 bg-blue-50 p-4">
-          <div className="flex items-start gap-3">
-            <svg
-              className="mt-0.5 h-6 w-6 text-blue-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-            <div>
-              <h3 className="font-semibold text-blue-800">Office Hours</h3>
-              <p className="text-sm text-blue-700">
-                Our staff is available for non-emergency matters from 9:00 AM to
-                6:00 PM, Monday through Saturday. Emergency maintenance issues
-                are addressed 24/7.
+          {/* Empty State */}
+          {staffMembers.length === 0 && (
+            <div className="rounded-lg border border-gray-200 bg-white p-12 text-center">
+              <svg
+                className="mx-auto h-12 w-12 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                />
+              </svg>
+              <h3 className="mt-4 text-lg font-medium text-gray-900">
+                No staff contacts available
+              </h3>
+              <p className="mt-2 text-gray-600">
+                Staff contact information will be displayed here when available.
               </p>
+            </div>
+          )}
+
+          {/* Additional Information */}
+          <div className="mt-8 rounded-lg border border-blue-200 bg-blue-50 p-4">
+            <div className="flex items-start gap-3">
+              <svg
+                className="mt-0.5 h-6 w-6 text-blue-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div>
+                <h3 className="font-semibold text-blue-800">Office Hours</h3>
+                <p className="text-sm text-blue-700">
+                  Our staff is available for non-emergency matters from 9:00 AM
+                  to 6:00 PM, Monday through Saturday. Emergency maintenance
+                  issues are addressed 24/7.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </AuthGuard>
   );
 };
 

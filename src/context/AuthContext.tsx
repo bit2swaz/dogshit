@@ -45,9 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    if (!isLoading && !user && pathname !== "/login") {
-      router.push("/login");
-    }
+    // Only redirect from login page to home if user is already logged in
     if (!isLoading && user && pathname === "/login") {
       router.push("/home");
     }

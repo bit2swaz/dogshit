@@ -1,19 +1,53 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Inter } from "next/font/google";
+import { useAuth } from "~/context/AuthContext";
+import toast from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const LoginPage = () => {
-  const [societyCode, setSocietyCode] = useState("");
-  const router = useRouter();
+  const [formData, setFormData] = useState({
+    name: "",
+    age: "",
+    societyCode: "",
+  });
+  const { login } = useAuth();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple navigation to home page without authentication logic
-    router.push("/home");
+
+    // Validate that none of the fields are empty
+    if (!formData.name.trim()) {
+      toast.error("Please enter your name");
+      return;
+    }
+
+    if (!formData.age.trim()) {
+      toast.error("Please enter your age");
+      return;
+    }
+
+    if (!formData.societyCode.trim()) {
+      toast.error("Please enter your society code");
+      return;
+    }
+
+    // Call the login function from useAuth
+    login({
+      name: formData.name.trim(),
+      age: formData.age.trim(),
+      societyCode: formData.societyCode.trim(),
+    });
   };
 
   return (
@@ -32,6 +66,44 @@ const LoginPage = () => {
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <label
+                htmlFor="name"
+                className="mb-2 block text-sm font-medium text-gray-700"
+              >
+                Your Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="focus:ring-brand w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-transparent focus:ring-2 focus:outline-none"
+                placeholder="Enter your full name"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="age"
+                className="mb-2 block text-sm font-medium text-gray-700"
+              >
+                Your Age
+              </label>
+              <input
+                type="number"
+                id="age"
+                name="age"
+                value={formData.age}
+                onChange={handleInputChange}
+                className="focus:ring-brand w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-transparent focus:ring-2 focus:outline-none"
+                placeholder="Enter your age"
+                min="1"
+                max="120"
+              />
+            </div>
+
+            <div>
+              <label
                 htmlFor="societyCode"
                 className="mb-2 block text-sm font-medium text-gray-700"
               >
@@ -40,11 +112,11 @@ const LoginPage = () => {
               <input
                 type="text"
                 id="societyCode"
-                value={societyCode}
-                onChange={(e) => setSocietyCode(e.target.value)}
+                name="societyCode"
+                value={formData.societyCode}
+                onChange={handleInputChange}
                 className="focus:ring-brand w-full rounded-md border border-gray-300 px-4 py-3 text-gray-900 placeholder-gray-500 transition-colors duration-200 focus:border-transparent focus:ring-2 focus:outline-none"
                 placeholder="Enter your society code"
-                required
               />
             </div>
 
