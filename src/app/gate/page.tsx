@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import { Inter } from "next/font/google";
 import db from "~/data/mock-db.json";
@@ -5,8 +8,61 @@ import AuthGuard from "~/components/AuthGuard";
 
 const inter = Inter({ subsets: ["latin"] });
 
+interface GatePass {
+  id: number;
+  visitor: string;
+  type: string;
+  status: string;
+  time: string;
+}
+
 const GatePage = () => {
   const society = db.elysium123;
+
+  // State management
+  const [gatePasses, setGatePasses] = useState<GatePass[]>(society.gatePasses);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    visitor: "",
+    type: "",
+  });
+
+  // Helper functions
+  const getCurrentTime = () => {
+    const now = new Date();
+    return now.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
+  // Handle form submission
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.visitor.trim() || !formData.type) return;
+
+    const newGatePass: GatePass = {
+      id: Math.max(...gatePasses.map((pass) => pass.id)) + 1,
+      visitor: formData.visitor.trim(),
+      type: formData.type,
+      status: "Pending",
+      time: getCurrentTime(),
+    };
+
+    setGatePasses([newGatePass, ...gatePasses]);
+    setFormData({ visitor: "", type: "" });
+    setIsModalOpen(false);
+  };
+
+  // Handle approve/reject actions
+  const handleStatusUpdate = (id: number, newStatus: string) => {
+    setGatePasses(
+      gatePasses.map((pass) =>
+        pass.id === id ? { ...pass, status: newStatus } : pass,
+      ),
+    );
+  };
 
   // Function to get status badge styles
   const getStatusBadgeStyles = (status: string) => {
@@ -101,6 +157,70 @@ const GatePage = () => {
   return (
     <AuthGuard>
       <div className={`min-h-screen bg-slate-50 ${inter.className}`}>
+        {/* Pre-Approve Guest Modal */}
+        {isModalOpen && (
+          <div className="bg-opacity-50 fixed inset-0 z-40 flex items-center justify-center bg-black">
+            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
+              <h2 className="mb-4 text-xl font-bold text-gray-900">
+                Pre-Approve a Guest
+              </h2>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    Visitor Name
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    value={formData.visitor}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        visitor: e.target.value,
+                      }))
+                    }
+                    required
+                    placeholder="Enter visitor name"
+                  />
+                </div>
+                <div className="mb-6">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    Visit Type
+                  </label>
+                  <select
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 focus:outline-none"
+                    value={formData.type}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, type: e.target.value }))
+                    }
+                    required
+                  >
+                    <option value="">Select visit type</option>
+                    <option value="Guest">Guest</option>
+                    <option value="Delivery">Delivery</option>
+                    <option value="Service">Service</option>
+                  </select>
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    type="submit"
+                    className="flex-1 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  >
+                    Pre-Approve
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
         <div className="container mx-auto px-4 py-8">
           {/* Header Section */}
           <div className="mb-8">
@@ -115,7 +235,10 @@ const GatePage = () => {
               </div>
 
               {/* Pre-Approve Guest Button */}
-              <button className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+              >
                 <svg
                   className="h-5 w-5"
                   fill="none"
@@ -138,35 +261,25 @@ const GatePage = () => {
           <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
-                {
-                  society.gatePasses.filter(
-                    (pass) => pass.status === "Approved",
-                  ).length
-                }
+                {gatePasses.filter((pass) => pass.status === "Approved").length}
               </h3>
               <p className="text-sm text-gray-600">Approved Today</p>
             </div>
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
-                {
-                  society.gatePasses.filter((pass) => pass.status === "Pending")
-                    .length
-                }
+                {gatePasses.filter((pass) => pass.status === "Pending").length}
               </h3>
               <p className="text-sm text-gray-600">Pending</p>
             </div>
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
-                {society.gatePasses.length}
+                {gatePasses.length}
               </h3>
               <p className="text-sm text-gray-600">Total Requests</p>
             </div>
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
-                {
-                  society.gatePasses.filter((pass) => pass.type === "Delivery")
-                    .length
-                }
+                {gatePasses.filter((pass) => pass.type === "Delivery").length}
               </h3>
               <p className="text-sm text-gray-600">Deliveries</p>
             </div>
@@ -188,7 +301,7 @@ const GatePage = () => {
 
             {/* Gate Passes List */}
             <div className="space-y-4">
-              {society.gatePasses.map((pass) => (
+              {gatePasses.map((pass) => (
                 <div
                   key={pass.id}
                   className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md"
@@ -226,10 +339,16 @@ const GatePage = () => {
                   {/* Action Buttons for Pending */}
                   {pass.status === "Pending" && (
                     <div className="mt-4 flex gap-2">
-                      <button className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:outline-none">
+                      <button
+                        onClick={() => handleStatusUpdate(pass.id, "Approved")}
+                        className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                      >
                         Approve
                       </button>
-                      <button className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 focus:outline-none">
+                      <button
+                        onClick={() => handleStatusUpdate(pass.id, "Rejected")}
+                        className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 focus:outline-none"
+                      >
                         Reject
                       </button>
                     </div>
@@ -239,7 +358,7 @@ const GatePage = () => {
             </div>
 
             {/* Empty State */}
-            {society.gatePasses.length === 0 && (
+            {gatePasses.length === 0 && (
               <div className="rounded-lg border border-gray-200 bg-white p-12 text-center">
                 <svg
                   className="mx-auto h-12 w-12 text-gray-400"
