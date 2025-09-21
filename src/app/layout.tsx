@@ -24,7 +24,12 @@ export default function RootLayout({
           {/* Wrap everything */}
           <Toaster position="top-center" /> {/* Add Toaster */}
           <Navbar />
-          <main className="p-4 sm:p-6 lg:p-8">{children}</main>
+          <main
+            key={Math.random()}
+            className="animate-fadeIn p-4 sm:p-6 lg:p-8"
+          >
+            {children}
+          </main>
         </AuthProvider>
       </body>
     </html>
