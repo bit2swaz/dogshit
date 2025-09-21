@@ -1,13 +1,34 @@
+"use client";
+
+import { useState } from "react";
 import { Inter } from "next/font/google";
 import db from "~/data/mock-db.json";
 import AuthGuard from "~/components/AuthGuard";
+import { useAuth } from "~/context/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
+interface Post {
+  id: number;
+  author: string;
+  title: string;
+  content: string;
+  timestamp: string;
+}
+
 const ForumPage = () => {
   const society = db.elysium123;
+  const { user } = useAuth();
+  
+  // State management
+  const [posts, setPosts] = useState<Post[]>(society.forum);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filter, setFilter] = useState<'all' | 'recent'>('all');
+  const [visiblePosts, setVisiblePosts] = useState(2);
+  const [formData, setFormData] = useState({ title: '', content: '' });
+  const [showToast, setShowToast] = useState(false);
 
-  // Function to format timestamp
+  // Helper functions
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
     return date.toLocaleDateString("en-US", {
@@ -19,7 +40,6 @@ const ForumPage = () => {
     });
   };
 
-  // Function to get time ago
   const getTimeAgo = (timestamp: string) => {
     const now = new Date();
     const postDate = new Date(timestamp);
@@ -37,9 +57,102 @@ const ForumPage = () => {
     }
   };
 
+  // Filter posts based on the selected filter
+  const filteredPosts = posts.filter(post => {
+    if (filter === 'recent') {
+      const now = new Date();
+      const postDate = new Date(post.timestamp);
+      const diffInHours = (now.getTime() - postDate.getTime()) / (1000 * 60 * 60);
+      return diffInHours <= 24;
+    }
+    return true;
+  });
+
+  // Handle form submission
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.title.trim() || !formData.content.trim() || !user) return;
+
+    const newPost: Post = {
+      id: Math.max(...posts.map(p => p.id)) + 1,
+      author: user.name,
+      title: formData.title.trim(),
+      content: formData.content.trim(),
+      timestamp: new Date().toISOString(),
+    };
+
+    setPosts([newPost, ...posts]);
+    setFormData({ title: '', content: '' });
+    setIsModalOpen(false);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
+  };
+
+  // Load more posts
+  const loadMorePosts = () => {
+    setVisiblePosts(prev => prev + 2);
+  };
+
   return (
     <AuthGuard>
       <div className={`min-h-screen bg-slate-50 ${inter.className}`}>
+        {/* Success Toast */}
+        {showToast && (
+          <div className="fixed top-4 right-4 z-50 rounded-lg bg-green-500 px-6 py-3 text-white shadow-lg">
+            Post created successfully!
+          </div>
+        )}
+
+        {/* Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
+              <h2 className="mb-4 text-xl font-bold text-gray-900">Create New Post</h2>
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    Title
+                  </label>
+                  <input
+                    type="text"
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    value={formData.title}
+                    onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                    required
+                  />
+                </div>
+                <div className="mb-6">
+                  <label className="mb-2 block text-sm font-medium text-gray-700">
+                    Content
+                  </label>
+                  <textarea
+                    rows={4}
+                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                    value={formData.content}
+                    onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                    required
+                  />
+                </div>
+                <div className="flex gap-3">
+                  <button
+                    type="submit"
+                    className="flex-1 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    Create Post
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="flex-1 rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+
         <div className="container mx-auto px-4 py-8">
           {/* Header Section */}
           <div className="mb-8">
@@ -54,7 +167,10 @@ const ForumPage = () => {
               </div>
 
               {/* Create New Post Button */}
-              <button className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none">
+              <button 
+                onClick={() => setIsModalOpen(true)}
+                className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+              >
                 <svg
                   className="h-5 w-5"
                   fill="none"
@@ -77,20 +193,20 @@ const ForumPage = () => {
           <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
-                {society.forum.length}
+                {posts.length}
               </h3>
               <p className="text-sm text-gray-600">Total Posts</p>
             </div>
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
-                {new Set(society.forum.map((post) => post.author)).size}
+                {new Set(posts.map((post) => post.author)).size}
               </h3>
               <p className="text-sm text-gray-600">Active Members</p>
             </div>
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
                 {
-                  society.forum.filter((post) => {
+                  posts.filter((post) => {
                     const postDate = new Date(post.timestamp);
                     const today = new Date();
                     return postDate.toDateString() === today.toDateString();
@@ -102,7 +218,7 @@ const ForumPage = () => {
             <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
               <h3 className="text-2xl font-bold text-gray-900">
                 {
-                  society.forum.filter((post) => {
+                  posts.filter((post) => {
                     const postDate = new Date(post.timestamp);
                     const weekAgo = new Date();
                     weekAgo.setDate(weekAgo.getDate() - 7);
@@ -121,10 +237,24 @@ const ForumPage = () => {
                 Recent Discussions
               </h2>
               <div className="flex items-center gap-2">
-                <button className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
+                <button 
+                  onClick={() => setFilter('all')}
+                  className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
+                    filter === 'all' 
+                      ? 'border-blue-500 bg-blue-50 text-blue-700'
+                      : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
                   All
                 </button>
-                <button className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50">
+                <button 
+                  onClick={() => setFilter('recent')}
+                  className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
+                    filter === 'recent' 
+                      ? 'border-blue-500 bg-blue-50 text-blue-700'
+                      : 'border-gray-300 bg-white text-gray-700 hover:bg-gray-50'
+                  }`}
+                >
                   Recent
                 </button>
               </div>
@@ -132,7 +262,7 @@ const ForumPage = () => {
 
             {/* Posts List */}
             <div className="space-y-4">
-              {society.forum.map((post) => (
+              {filteredPosts.slice(0, visiblePosts).map((post) => (
                 <div
                   key={post.id}
                   className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md"
@@ -224,7 +354,7 @@ const ForumPage = () => {
             </div>
 
             {/* Empty State */}
-            {society.forum.length === 0 && (
+            {filteredPosts.length === 0 && (
               <div className="rounded-lg border border-gray-200 bg-white p-12 text-center">
                 <svg
                   className="mx-auto h-12 w-12 text-gray-400"
@@ -245,16 +375,22 @@ const ForumPage = () => {
                 <p className="mt-2 text-gray-600">
                   Be the first to start a conversation in your community!
                 </p>
-                <button className="bg-brand hover:bg-brand-dark mt-4 inline-flex items-center gap-2 rounded-lg px-4 py-2 font-semibold text-white transition-colors duration-200">
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  className="bg-brand hover:bg-brand-dark mt-4 inline-flex items-center gap-2 rounded-lg px-4 py-2 font-semibold text-white transition-colors duration-200"
+                >
                   Create First Post
                 </button>
               </div>
             )}
 
             {/* Load More */}
-            {society.forum.length > 0 && (
+            {filteredPosts.length > visiblePosts && (
               <div className="text-center">
-                <button className="rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50">
+                <button 
+                  onClick={loadMorePosts}
+                  className="rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                >
                   Load More Posts
                 </button>
               </div>
