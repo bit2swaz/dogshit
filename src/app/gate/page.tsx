@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Inter } from "next/font/google";
+import { motion, AnimatePresence } from "framer-motion";
 import db from "~/data/mock-db.json";
 import AuthGuard from "~/components/AuthGuard";
 
@@ -68,13 +69,13 @@ const GatePage = () => {
   const getStatusBadgeStyles = (status: string) => {
     switch (status.toLowerCase()) {
       case "approved":
-        return "bg-green-100 text-green-800 border border-green-200";
+        return "bg-gradient-to-r from-cambridge-blue/20 to-linen/20 text-cambridge-blue border border-cambridge-blue/30";
       case "pending":
-        return "bg-yellow-100 text-yellow-800 border border-yellow-200";
+        return "bg-gradient-to-r from-hunyadi-yellow/20 to-tea-rose-red/20 text-hunyadi-yellow border border-hunyadi-yellow/30";
       case "rejected":
-        return "bg-red-100 text-red-800 border border-red-200";
+        return "bg-gradient-to-r from-light-coral/20 to-tea-rose-red/20 text-light-coral border border-light-coral/30";
       default:
-        return "bg-gray-100 text-gray-800 border border-gray-200";
+        return "bg-gradient-to-r from-cambridge-blue/10 to-linen/10 text-cambridge-blue/70 border border-cambridge-blue/20";
     }
   };
 
@@ -84,7 +85,7 @@ const GatePage = () => {
       case "delivery":
         return (
           <svg
-            className="h-5 w-5 text-blue-600"
+            className="text-cambridge-blue h-6 w-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -100,7 +101,7 @@ const GatePage = () => {
       case "guest":
         return (
           <svg
-            className="h-5 w-5 text-purple-600"
+            className="text-cambridge-blue h-6 w-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -116,7 +117,7 @@ const GatePage = () => {
       case "service":
         return (
           <svg
-            className="h-5 w-5 text-green-600"
+            className="text-cambridge-blue h-6 w-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -138,7 +139,7 @@ const GatePage = () => {
       default:
         return (
           <svg
-            className="h-5 w-5 text-gray-600"
+            className="text-cambridge-blue h-6 w-6"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -156,91 +157,115 @@ const GatePage = () => {
 
   return (
     <AuthGuard>
-      <div className={`min-h-screen bg-slate-50 ${inter.className}`}>
+      <div
+        className={`from-linen via-tea-rose-red/10 to-hunyadi-yellow/20 min-h-screen bg-gradient-to-br ${inter.className}`}
+      >
         {/* Pre-Approve Guest Modal */}
-        {isModalOpen && (
-          <div className="bg-opacity-50 fixed inset-0 z-40 flex items-center justify-center bg-black">
-            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-              <h2 className="mb-4 text-xl font-bold text-gray-900">
-                Pre-Approve a Guest
-              </h2>
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Visitor Name
-                  </label>
-                  <input
-                    type="text"
-                    className="focus:border-brand focus:ring-brand/50 w-full rounded-lg border border-gray-300 bg-slate-50 px-3 py-2 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
-                    value={formData.visitor}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        visitor: e.target.value,
-                      }))
-                    }
-                    required
-                    placeholder="Enter visitor name"
-                  />
-                </div>
-                <div className="mb-6">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Visit Type
-                  </label>
-                  <select
-                    className="focus:border-brand focus:ring-brand/50 w-full rounded-lg border border-gray-300 bg-slate-50 px-3 py-2 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
-                    value={formData.type}
-                    onChange={(e) =>
-                      setFormData((prev) => ({ ...prev, type: e.target.value }))
-                    }
-                    required
-                  >
-                    <option value="">Select visit type</option>
-                    <option value="Guest">Guest</option>
-                    <option value="Delivery">Delivery</option>
-                    <option value="Service">Service</option>
-                  </select>
-                </div>
-                <div className="flex gap-3">
-                  <button
-                    type="submit"
-                    className="flex-1 transform rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-all duration-200 hover:scale-105 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none active:scale-95"
-                  >
-                    Pre-Approve
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="flex-1 transform rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:scale-105 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none active:scale-95"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+        <AnimatePresence>
+          {isModalOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                className="glass-card shadow-soft w-full max-w-md rounded-2xl p-8"
+              >
+                <h2 className="text-cambridge-blue mb-6 text-2xl font-bold">
+                  Pre-Approve a Guest
+                </h2>
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-6">
+                    <label className="text-cambridge-blue mb-3 block text-sm font-semibold">
+                      Visitor Name
+                    </label>
+                    <input
+                      type="text"
+                      className="input-modern w-full"
+                      value={formData.visitor}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          visitor: e.target.value,
+                        }))
+                      }
+                      required
+                      placeholder="Enter visitor name"
+                    />
+                  </div>
+                  <div className="mb-8">
+                    <label className="text-cambridge-blue mb-3 block text-sm font-semibold">
+                      Visit Type
+                    </label>
+                    <select
+                      className="input-modern w-full"
+                      value={formData.type}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          type: e.target.value,
+                        }))
+                      }
+                      required
+                    >
+                      <option value="">Select visit type</option>
+                      <option value="Guest">Guest</option>
+                      <option value="Delivery">Delivery</option>
+                      <option value="Service">Service</option>
+                    </select>
+                  </div>
+                  <div className="flex gap-4">
+                    <button type="submit" className="btn-primary flex-1">
+                      Pre-Approve
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(false)}
+                      className="btn-secondary flex-1"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-12 sm:py-16">
           {/* Header Section */}
-          <div className="mb-8">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-12"
+          >
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">
+                <h1 className="text-cambridge-blue mb-3 text-4xl font-bold">
                   Gate Management
                 </h1>
-                <p className="text-gray-600">
+                <p className="text-cambridge-blue/70 text-lg">
                   Manage visitor access and gate passes
                 </p>
               </div>
 
               {/* Pre-Approve Guest Button */}
-              <button
+              <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setIsModalOpen(true)}
-                className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                className="btn-primary inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold"
               >
                 <svg
-                  className="h-5 w-5"
+                  className="h-6 w-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -253,73 +278,107 @@ const GatePage = () => {
                   />
                 </svg>
                 Pre-Approve a Guest
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Summary Stats */}
-          <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mb-12 grid grid-cols-2 gap-6 md:grid-cols-4"
+          >
+            <motion.div
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="glass-card shadow-soft rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue mb-2 text-3xl font-bold">
                 {gatePasses.filter((pass) => pass.status === "Approved").length}
               </h3>
-              <p className="text-sm text-gray-600">Approved Today</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Approved Today
+              </p>
+            </motion.div>
+            <motion.div
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="glass-card shadow-soft rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue mb-2 text-3xl font-bold">
                 {gatePasses.filter((pass) => pass.status === "Pending").length}
               </h3>
-              <p className="text-sm text-gray-600">Pending</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Pending
+              </p>
+            </motion.div>
+            <motion.div
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="glass-card shadow-soft rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue mb-2 text-3xl font-bold">
                 {gatePasses.length}
               </h3>
-              <p className="text-sm text-gray-600">Total Requests</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Total Requests
+              </p>
+            </motion.div>
+            <motion.div
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="glass-card shadow-soft rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue mb-2 text-3xl font-bold">
                 {gatePasses.filter((pass) => pass.type === "Delivery").length}
               </h3>
-              <p className="text-sm text-gray-600">Deliveries</p>
-            </div>
-          </div>
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Deliveries
+              </p>
+            </motion.div>
+          </motion.div>
 
           {/* Recent Gate Activity */}
-          <div className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="space-y-8"
+          >
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-cambridge-blue text-2xl font-bold">
                 Recent Gate Activity
               </h2>
               <Link
                 href="/gate/history"
-                className="text-brand hover:text-brand-dark text-sm font-medium"
+                className="text-cambridge-blue hover:text-cambridge-blue/80 text-lg font-semibold transition-colors"
               >
                 View All →
               </Link>
             </div>
 
             {/* Gate Passes List */}
-            <div className="space-y-4">
-              {gatePasses.map((pass) => (
-                <div
+            <div className="space-y-6">
+              {gatePasses.map((pass, index) => (
+                <motion.div
                   key={pass.id}
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 * index }}
+                  whileHover={{ y: -4, scale: 1.01 }}
+                  className="glass-card shadow-soft hover:shadow-soft-hover rounded-2xl p-8 transition-all duration-300"
                 >
                   <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-4">
+                    <div className="flex items-start gap-6">
                       {/* Type Icon */}
-                      <div className="flex-shrink-0 rounded-full bg-gray-50 p-2">
+                      <div className="from-cambridge-blue/20 to-linen/20 flex-shrink-0 rounded-2xl bg-gradient-to-br p-4">
                         {getTypeIcon(pass.type)}
                       </div>
 
                       {/* Visitor Info */}
                       <div className="flex-1">
-                        <h3 className="text-lg font-bold text-gray-900">
+                        <h3 className="text-cambridge-blue mb-2 text-xl font-bold">
                           {pass.visitor}
                         </h3>
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
-                          <span className="font-medium">{pass.type}</span>
+                        <div className="text-cambridge-blue/70 flex items-center gap-3 text-base">
+                          <span className="font-semibold">{pass.type}</span>
                           <span>•</span>
                           <span>{pass.time}</span>
                         </div>
@@ -328,7 +387,7 @@ const GatePage = () => {
 
                     {/* Status Badge */}
                     <span
-                      className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${getStatusBadgeStyles(
+                      className={`inline-flex items-center rounded-2xl px-4 py-2 text-sm font-bold ${getStatusBadgeStyles(
                         pass.status,
                       )}`}
                     >
@@ -338,50 +397,64 @@ const GatePage = () => {
 
                   {/* Action Buttons for Pending */}
                   {pass.status === "Pending" && (
-                    <div className="mt-4 flex gap-2">
-                      <button
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      className="mt-6 flex gap-4"
+                    >
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => handleStatusUpdate(pass.id, "Approved")}
-                        className="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700 focus:ring-2 focus:ring-green-500 focus:outline-none"
+                        className="btn-primary flex-1 py-3 text-base font-semibold"
                       >
                         Approve
-                      </button>
-                      <button
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() => handleStatusUpdate(pass.id, "Rejected")}
-                        className="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50 focus:ring-2 focus:ring-gray-500 focus:outline-none"
+                        className="btn-secondary flex-1 py-3 text-base font-semibold"
                       >
                         Reject
-                      </button>
-                    </div>
+                      </motion.button>
+                    </motion.div>
                   )}
-                </div>
+                </motion.div>
               ))}
             </div>
 
             {/* Empty State */}
             {gatePasses.length === 0 && (
-              <div className="rounded-lg border border-gray-200 bg-white p-12 text-center">
-                <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <h3 className="mt-4 text-lg font-medium text-gray-900">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="glass-card shadow-soft rounded-2xl p-16 text-center"
+              >
+                <div className="from-cambridge-blue/20 to-linen/20 mx-auto mb-6 inline-flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br">
+                  <svg
+                    className="text-cambridge-blue h-12 w-12"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-cambridge-blue mt-4 text-lg font-medium">
                   No gate activity
                 </h3>
-                <p className="mt-2 text-gray-600">
+                <p className="text-cambridge-blue/70 mt-2">
                   No recent gate passes or visitor requests found.
                 </p>
-              </div>
+              </motion.div>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </AuthGuard>

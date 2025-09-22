@@ -13,97 +13,111 @@ const HomePage = () => {
 
   return (
     <AuthGuard>
-      <div className={`min-h-screen bg-stone-50 ${inter.className}`}>
-        <div className="container mx-auto px-4 py-8">
+      <div
+        className={`from-linen via-tea-rose-red/10 to-hunyadi-yellow/20 min-h-screen bg-gradient-to-br ${inter.className}`}
+      >
+        <div className="page-container py-12 sm:py-16">
           {/* Welcome Header */}
-          <div className="mb-8 text-center">
-            <h1 className="mb-4 text-4xl font-bold text-stone-900">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-12 text-center"
+          >
+            <h1 className="text-cambridge-blue mb-4 text-4xl font-bold sm:text-5xl">
               Welcome to {society.name}
             </h1>
-            <p className="mb-8 text-lg text-stone-600">
+            <p className="text-cambridge-blue/80 text-lg sm:text-xl">
               Your community connection platform
             </p>
-          </div>
+          </motion.div>
 
           {/* Summary Stats */}
           <motion.div
-            className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4"
+            className="mb-12 grid grid-cols-2 gap-6 md:grid-cols-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, staggerChildren: 0.1 }}
+            transition={{ duration: 0.6, staggerChildren: 0.1, delay: 0.2 }}
           >
             <motion.div
-              className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              whileHover={{ y: -2 }}
-            >
-              <h3 className="text-2xl font-bold text-gray-900">
-                {society.forum.length}
-              </h3>
-              <p className="text-sm text-gray-600">Forum Posts</p>
-            </motion.div>
-            <motion.div
-              className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              whileHover={{ y: -2 }}
-            >
-              <h3 className="text-2xl font-bold text-gray-900">
-                {society.marketplace.length}
-              </h3>
-              <p className="text-sm text-gray-600">Marketplace Items</p>
-            </motion.div>
-            <motion.div
-              className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+              className="glass-card shadow-soft hover:shadow-soft-hover cursor-pointer rounded-2xl p-6 text-center transition-all duration-200"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.3 }}
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -5, scale: 1.02 }}
             >
-              <h3 className="text-2xl font-bold text-gray-900">
-                {society.gatePasses.length}
+              <h3 className="text-cambridge-blue text-3xl font-bold">
+                {society.forum.length}
               </h3>
-              <p className="text-sm text-gray-600">Gate Passes</p>
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Forum Posts
+              </p>
             </motion.div>
             <motion.div
-              className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+              className="glass-card shadow-soft hover:shadow-soft-hover cursor-pointer rounded-2xl p-6 text-center transition-all duration-200"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.4 }}
-              whileHover={{ y: -2 }}
+              whileHover={{ y: -5, scale: 1.02 }}
             >
-              <h3 className="text-2xl font-bold text-gray-900">
+              <h3 className="text-cambridge-blue text-3xl font-bold">
+                {society.marketplace.length}
+              </h3>
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Marketplace Items
+              </p>
+            </motion.div>
+            <motion.div
+              className="glass-card shadow-soft hover:shadow-soft-hover cursor-pointer rounded-2xl p-6 text-center transition-all duration-200"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.5 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
+              <h3 className="text-cambridge-blue text-3xl font-bold">
+                {society.gatePasses.length}
+              </h3>
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Gate Passes
+              </p>
+            </motion.div>
+            <motion.div
+              className="glass-card shadow-soft hover:shadow-soft-hover cursor-pointer rounded-2xl p-6 text-center transition-all duration-200"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.6 }}
+              whileHover={{ y: -5, scale: 1.02 }}
+            >
+              <h3 className="text-cambridge-blue text-3xl font-bold">
                 {society.complaints.length}
               </h3>
-              <p className="text-sm text-gray-600">Complaints</p>
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Complaints
+              </p>
             </motion.div>
           </motion.div>
 
           {/* Dashboard Cards - Responsive Grid */}
           <motion.div
-            className="grid grid-cols-2 gap-4 md:grid-cols-3"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5, staggerChildren: 0.15 }}
+            transition={{ duration: 0.6, delay: 0.8, staggerChildren: 0.15 }}
           >
             {/* Recent Announcements Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.6 }}
-              whileHover={{ y: -4 }}
+              transition={{ duration: 0.4, delay: 0.9 }}
+              whileHover={{ y: -8, scale: 1.02 }}
             >
               <Link
                 href="/forum"
-                className="group hover:border-brand block cursor-pointer rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+                className="glass-card group shadow-soft hover:shadow-soft-hover block cursor-pointer rounded-2xl p-6 transition-all duration-300"
               >
                 <div className="mb-4">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 group-hover:bg-blue-100">
+                  <div className="from-hunyadi-yellow/20 to-light-coral/20 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br transition-all group-hover:scale-110">
                     <svg
-                      className="h-6 w-6 text-amber-600"
+                      className="text-cambridge-blue h-6 w-6"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -117,22 +131,24 @@ const HomePage = () => {
                     </svg>
                   </div>
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                <h3 className="text-cambridge-blue mb-2 text-lg font-semibold">
                   Recent Announcements
                 </h3>
-                <p className="mb-4 text-sm text-gray-600">
+                <p className="text-cambridge-blue/70 mb-4 text-sm">
                   {society.forum.length} forum posts
                 </p>
                 <div className="space-y-2">
                   {society.forum.slice(0, 2).map((post) => (
                     <div
                       key={post.id}
-                      className="rounded border-l-4 border-amber-500 bg-gray-50 p-2"
+                      className="border-hunyadi-yellow rounded-xl border-l-4 bg-white/60 p-3 backdrop-blur-sm"
                     >
-                      <p className="text-xs font-medium text-gray-900">
+                      <p className="text-cambridge-blue text-xs font-medium">
                         {post.title}
                       </p>
-                      <p className="text-xs text-gray-600">by {post.author}</p>
+                      <p className="text-cambridge-blue/60 text-xs">
+                        by {post.author}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -143,17 +159,17 @@ const HomePage = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.75 }}
-              whileHover={{ y: -4 }}
+              transition={{ duration: 0.4, delay: 1.05 }}
+              whileHover={{ y: -8, scale: 1.02 }}
             >
               <Link
                 href="/marketplace"
-                className="group hover:border-brand block cursor-pointer rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+                className="glass-card group shadow-soft hover:shadow-soft-hover block cursor-pointer rounded-2xl p-6 transition-all duration-300"
               >
                 <div className="mb-4">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-green-50 group-hover:bg-green-100">
+                  <div className="from-tea-rose-red/20 to-hunyadi-yellow/20 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br transition-all group-hover:scale-110">
                     <svg
-                      className="h-6 w-6 text-green-600"
+                      className="text-cambridge-blue h-6 w-6"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -167,22 +183,22 @@ const HomePage = () => {
                     </svg>
                   </div>
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                <h3 className="text-cambridge-blue mb-2 text-lg font-semibold">
                   New Marketplace Items
                 </h3>
-                <p className="mb-4 text-sm text-gray-600">
+                <p className="text-cambridge-blue/70 mb-4 text-sm">
                   {society.marketplace.length} items available
                 </p>
                 <div className="space-y-2">
                   {society.marketplace.slice(0, 2).map((item) => (
                     <div
                       key={item.id}
-                      className="rounded border-l-4 border-orange-500 bg-gray-50 p-2"
+                      className="border-light-coral rounded-xl border-l-4 bg-white/60 p-3 backdrop-blur-sm"
                     >
-                      <p className="text-xs font-medium text-gray-900">
+                      <p className="text-cambridge-blue text-xs font-medium">
                         {item.item}
                       </p>
-                      <p className="text-xs text-gray-600">
+                      <p className="text-cambridge-blue/60 text-xs">
                         ₹{item.price} by {item.seller}
                       </p>
                     </div>
@@ -195,17 +211,17 @@ const HomePage = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.9 }}
-              whileHover={{ y: -4 }}
+              transition={{ duration: 0.4, delay: 1.2 }}
+              whileHover={{ y: -8, scale: 1.02 }}
             >
               <Link
                 href="/gate"
-                className="group hover:border-brand col-span-2 block cursor-pointer rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl md:col-span-1"
+                className="glass-card group shadow-soft hover:shadow-soft-hover block cursor-pointer rounded-2xl p-6 transition-all duration-300 md:col-span-1"
               >
                 <div className="mb-4">
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-lg bg-purple-50 group-hover:bg-purple-100">
+                  <div className="from-cambridge-blue/20 to-linen/20 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br transition-all group-hover:scale-110">
                     <svg
-                      className="h-6 w-6 text-purple-600"
+                      className="text-cambridge-blue h-6 w-6"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -219,22 +235,22 @@ const HomePage = () => {
                     </svg>
                   </div>
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                <h3 className="text-cambridge-blue mb-2 text-lg font-semibold">
                   Recent Gate Activity
                 </h3>
-                <p className="mb-4 text-sm text-gray-600">
+                <p className="text-cambridge-blue/70 mb-4 text-sm">
                   {society.gatePasses.length} recent activities
                 </p>
                 <div className="space-y-2">
                   {society.gatePasses.slice(0, 2).map((activity) => (
                     <div
                       key={activity.id}
-                      className="rounded border-l-4 border-yellow-500 bg-gray-50 p-2"
+                      className="border-tea-rose-red rounded-xl border-l-4 bg-white/60 p-3 backdrop-blur-sm"
                     >
-                      <p className="text-xs font-medium text-gray-900">
+                      <p className="text-cambridge-blue text-xs font-medium">
                         {activity.visitor}
                       </p>
-                      <p className="text-xs text-gray-600">
+                      <p className="text-cambridge-blue/60 text-xs">
                         {activity.type} • {activity.status} • {activity.time}
                       </p>
                     </div>

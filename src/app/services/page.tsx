@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Inter } from "next/font/google";
+import { motion, AnimatePresence } from "framer-motion";
 import db from "~/data/mock-db.json";
 import AuthGuard from "~/components/AuthGuard";
 
@@ -217,7 +218,7 @@ const ServicesPage = () => {
     if (lowerCategory.includes("plumber")) {
       return (
         <svg
-          className="h-6 w-6 text-blue-600"
+          className="text-cambridge-blue h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -233,7 +234,7 @@ const ServicesPage = () => {
     } else if (lowerCategory.includes("electric")) {
       return (
         <svg
-          className="h-6 w-6 text-yellow-600"
+          className="text-cambridge-blue h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -249,7 +250,7 @@ const ServicesPage = () => {
     } else if (lowerCategory.includes("clean")) {
       return (
         <svg
-          className="h-6 w-6 text-green-600"
+          className="text-cambridge-blue h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -265,7 +266,7 @@ const ServicesPage = () => {
     } else if (lowerCategory.includes("maintenance")) {
       return (
         <svg
-          className="h-6 w-6 text-purple-600"
+          className="text-cambridge-blue h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -287,7 +288,7 @@ const ServicesPage = () => {
     } else if (lowerCategory.includes("security")) {
       return (
         <svg
-          className="h-6 w-6 text-red-600"
+          className="text-cambridge-blue h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -303,7 +304,7 @@ const ServicesPage = () => {
     } else {
       return (
         <svg
-          className="h-6 w-6 text-gray-600"
+          className="text-cambridge-blue h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -321,34 +322,53 @@ const ServicesPage = () => {
 
   return (
     <AuthGuard>
-      <div className={`min-h-screen bg-slate-50 ${inter.className}`}>
+      <div
+        className={`from-linen via-tea-rose-red/10 to-hunyadi-yellow/20 min-h-screen bg-gradient-to-br ${inter.className}`}
+      >
         {/* Toast */}
-        {showToast && (
-          <div className="fixed top-4 right-4 z-50 rounded-lg bg-green-500 px-6 py-3 text-white shadow-lg">
-            {toastMessage}
-          </div>
-        )}
+        <AnimatePresence>
+          {showToast && (
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              className="glass-card text-cambridge-blue shadow-soft fixed top-6 right-6 z-50 rounded-2xl px-8 py-4"
+            >
+              {toastMessage}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-12 sm:py-16">
           {/* Header Section */}
-          <div className="mb-8">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="mb-12"
+          >
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900">
+                <h1 className="text-cambridge-blue mb-3 text-4xl font-bold">
                   Services Directory
                 </h1>
-                <p className="text-gray-600">
+                <p className="text-cambridge-blue/70 text-lg">
                   Pre-approved service providers for your community
                 </p>
               </div>
 
               {/* Add Service Button */}
-              <button
+              <motion.button
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setShowAddModal(true)}
-                className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-colors duration-200 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                className="btn-primary inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold"
               >
                 <svg
-                  className="h-5 w-5"
+                  className="h-6 w-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -361,26 +381,44 @@ const ServicesPage = () => {
                   />
                 </svg>
                 Add Service Provider
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Services Stats */}
-          <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mb-12 grid grid-cols-2 gap-6 md:grid-cols-4"
+          >
+            <motion.div
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="glass-card shadow-soft rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue mb-2 text-3xl font-bold">
                 {services.length}
               </h3>
-              <p className="text-sm text-gray-600">Total Services</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Total Services
+              </p>
+            </motion.div>
+            <motion.div
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="glass-card shadow-soft rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue mb-2 text-3xl font-bold">
                 {Object.keys(servicesByCategory).length}
               </h3>
-              <p className="text-sm text-gray-600">Categories</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Categories
+              </p>
+            </motion.div>
+            <motion.div
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="glass-card shadow-soft rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue mb-2 text-3xl font-bold">
                 {
                   services.filter(
                     (service) =>
@@ -389,114 +427,93 @@ const ServicesPage = () => {
                   ).length
                 }
               </h3>
-              <p className="text-sm text-gray-600">24/7 Services</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                24/7 Services
+              </p>
+            </motion.div>
+            <motion.div
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="glass-card shadow-soft rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue mb-2 text-3xl font-bold">
                 {Math.round(
                   (services.length / Object.keys(servicesByCategory).length) *
                     10,
                 ) / 10}
               </h3>
-              <p className="text-sm text-gray-600">Avg. per Category</p>
-            </div>
-          </div>
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Avg. per Category
+              </p>
+            </motion.div>
+          </motion.div>
 
           {/* Services by Category */}
-          <div className="space-y-8">
-            {Object.entries(servicesByCategory).map(([category, services]) => (
-              <div key={category} className="space-y-4">
-                {/* Category Header */}
-                <div className="flex items-center gap-3">
-                  {getCategoryIcon(category)}
-                  <h2 className="text-xl font-bold tracking-wide text-gray-900 uppercase">
-                    {category}
-                  </h2>
-                  <div className="flex-1 border-t border-gray-200"></div>
-                  <span className="text-sm text-gray-500">
-                    {services.length}{" "}
-                    {services.length === 1 ? "service" : "services"}
-                  </span>
-                </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="space-y-12"
+          >
+            {Object.entries(servicesByCategory).map(
+              ([category, services], categoryIndex) => (
+                <motion.div
+                  key={category}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.5,
+                    delay: 0.5 + categoryIndex * 0.1,
+                  }}
+                  className="space-y-6"
+                >
+                  {/* Category Header */}
+                  <div className="flex items-center gap-4">
+                    <div className="from-cambridge-blue/20 to-linen/20 rounded-2xl bg-gradient-to-br p-3">
+                      {getCategoryIcon(category)}
+                    </div>
+                    <h2 className="text-cambridge-blue text-2xl font-bold tracking-wide uppercase">
+                      {category}
+                    </h2>
+                    <div className="border-cambridge-blue/20 flex-1 border-t-2"></div>
+                    <span className="text-cambridge-blue/70 text-base font-semibold">
+                      {services.length}{" "}
+                      {services.length === 1 ? "service" : "services"}
+                    </span>
+                  </div>
 
-                {/* Services Grid */}
-                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                  {services.map((service) => (
-                    <div
-                      key={service.id}
-                      className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md"
-                    >
-                      {/* Service Header */}
-                      <div className="mb-3">
-                        <h3 className="text-lg font-semibold text-gray-900">
-                          {service.name}
-                        </h3>
-                      </div>
-
-                      {/* Service Description */}
-                      <p className="mb-4 line-clamp-2 text-sm text-gray-600">
-                        {service.description}
-                      </p>
-
-                      {/* Contact Section */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <svg
-                            className="h-4 w-4 text-gray-500"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                            />
-                          </svg>
-                          <span className="text-sm text-gray-600">
-                            {formatPhoneNumber(service.contact)}
-                          </span>
+                  {/* Services Grid */}
+                  <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                    {services.map((service, serviceIndex) => (
+                      <motion.div
+                        key={service.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.4,
+                          delay:
+                            0.6 + categoryIndex * 0.1 + serviceIndex * 0.05,
+                        }}
+                        whileHover={{ y: -8, scale: 1.02 }}
+                        className="glass-card shadow-soft hover:shadow-soft-hover rounded-2xl p-8 transition-all duration-300"
+                      >
+                        {/* Service Header */}
+                        <div className="mb-4">
+                          <h3 className="text-cambridge-blue text-xl font-bold">
+                            {service.name}
+                          </h3>
                         </div>
 
-                        {/* Tappable Contact Button */}
-                        <a
-                          href={`tel:${service.contact}`}
-                          className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-sm font-medium text-white transition-colors focus:ring-2 focus:ring-offset-1 focus:outline-none"
-                        >
-                          <svg
-                            className="h-4 w-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                            />
-                          </svg>
-                          Call
-                        </a>
-                      </div>
+                        {/* Service Description */}
+                        <p className="text-cambridge-blue/70 mb-6 line-clamp-2 text-base">
+                          {service.description}
+                        </p>
 
-                      {/* Additional Actions */}
-                      <div className="mt-3 flex gap-2">
-                        <button
-                          onClick={() => copyToClipboard(service.contact)}
-                          className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
-                        >
-                          Copy Number
-                        </button>
-                        <button
-                          onClick={() => toggleFavorite(service.id)}
-                          className="rounded-md border border-gray-300 bg-white p-1.5 text-gray-600 transition-colors hover:bg-gray-50"
-                        >
-                          {service.favorited ? (
+                        {/* Contact Section */}
+                        <div className="mb-6 flex items-center justify-between">
+                          <div className="flex items-center gap-3">
                             <svg
-                              className="h-4 w-4 text-red-500"
-                              fill="currentColor"
+                              className="text-cambridge-blue h-5 w-5"
+                              fill="none"
                               stroke="currentColor"
                               viewBox="0 0 24 24"
                             >
@@ -504,10 +521,21 @@ const ServicesPage = () => {
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                                 strokeWidth={2}
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                               />
                             </svg>
-                          ) : (
+                            <span className="text-cambridge-blue/80 text-base">
+                              {formatPhoneNumber(service.contact)}
+                            </span>
+                          </div>
+
+                          {/* Tappable Contact Button */}
+                          <motion.a
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            href={`tel:${service.contact}`}
+                            className="btn-primary inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold"
+                          >
                             <svg
                               className="h-4 w-4"
                               fill="none"
@@ -518,18 +546,67 @@ const ServicesPage = () => {
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                                 strokeWidth={2}
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                               />
                             </svg>
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
+                            Call
+                          </motion.a>
+                        </div>
+
+                        {/* Additional Actions */}
+                        <div className="flex gap-3">
+                          <motion.button
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            onClick={() => copyToClipboard(service.contact)}
+                            className="btn-secondary flex-1 py-2 text-sm font-semibold"
+                          >
+                            Copy Number
+                          </motion.button>
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => toggleFavorite(service.id)}
+                            className="border-cambridge-blue/30 text-cambridge-blue hover:bg-cambridge-blue/10 rounded-2xl border bg-white/60 p-2 transition-colors"
+                          >
+                            {service.favorited ? (
+                              <svg
+                                className="text-light-coral h-5 w-5"
+                                fill="currentColor"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                              </svg>
+                            ) : (
+                              <svg
+                                className="h-5 w-5"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                                />
+                              </svg>
+                            )}
+                          </motion.button>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              ),
+            )}
+          </motion.div>
 
           {/* Empty State */}
           {services.length === 0 && (

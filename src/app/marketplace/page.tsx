@@ -395,7 +395,7 @@ const MarketplacePage = () => {
           </div>
         )}
 
-        <div className="page-container py-8">
+        <div className="page-container py-12 sm:py-16">
           {/* Header Section */}
           <div className="mb-12 text-center">
             <div className="mb-8">
