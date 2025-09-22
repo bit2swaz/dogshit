@@ -16,42 +16,48 @@ export default function LandingPage() {
       title: "Community Forum",
       description:
         "Stay connected with neighbors, share updates, and participate in community discussions.",
-      color: "bg-amber-50 border-amber-200",
+      color:
+        "bg-gradient-to-br from-linen to-tea-rose-red border-2 border-white/30",
     },
     {
       icon: "🛒",
       title: "Marketplace",
       description:
         "Buy and sell items within your community. Safe, convenient, and trustworthy.",
-      color: "bg-green-50 border-green-200",
+      color:
+        "bg-gradient-to-br from-tea-rose-red to-hunyadi-yellow border-2 border-white/30",
     },
     {
       icon: "🏠",
       title: "Gate Management",
       description:
         "Seamless visitor and delivery management with digital gate passes.",
-      color: "bg-orange-50 border-orange-200",
+      color:
+        "bg-gradient-to-br from-hunyadi-yellow to-light-coral border-2 border-white/30",
     },
     {
       icon: "🔧",
       title: "Services Directory",
       description:
         "Access pre-approved service providers for all your home maintenance needs.",
-      color: "bg-stone-50 border-stone-200",
+      color:
+        "bg-gradient-to-br from-cambridge-blue to-linen border-2 border-white/30",
     },
     {
       icon: "📋",
       title: "Complaints System",
       description:
         "Report issues and track resolution progress for community problems.",
-      color: "bg-red-50 border-red-200",
+      color:
+        "bg-gradient-to-br from-light-coral to-tea-rose-red border-2 border-white/30",
     },
     {
       icon: "👥",
       title: "Staff Contacts",
       description:
         "Direct access to security, maintenance, and management staff.",
-      color: "bg-yellow-50 border-yellow-200",
+      color:
+        "bg-gradient-to-br from-linen to-cambridge-blue border-2 border-white/30",
     },
   ];
 
@@ -64,32 +70,10 @@ export default function LandingPage() {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br from-stone-50 via-amber-50 to-orange-50 ${inter.className}`}
+      className={`from-linen via-tea-rose-red to-hunyadi-yellow min-h-screen bg-gradient-to-br ${inter.className}`}
     >
-      {/* Navigation */}
-      <nav className="fixed top-0 z-50 w-full border-b border-amber-200 bg-white/80 backdrop-blur-md">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-amber-400 to-orange-500">
-                <span className="text-xs font-bold text-white">NH</span>
-              </div>
-              <span className="text-xl font-bold text-stone-800">
-                NeighborhoodHub
-              </span>
-            </div>
-            <Link
-              href="/login"
-              className="transform rounded-full bg-gradient-to-r from-amber-500 to-orange-600 px-6 py-2 font-medium text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-amber-600 hover:to-orange-700"
-            >
-              Get Started
-            </Link>
-          </div>
-        </div>
-      </nav>
-
       {/* Hero Section */}
-      <section className="pt-24 pb-20">
+      <section className="pt-20 pb-20">
         <div className="container mx-auto px-4">
           <motion.div
             className="mx-auto max-w-4xl text-center"
@@ -98,7 +82,7 @@ export default function LandingPage() {
             transition={{ duration: 0.8 }}
           >
             <motion.h1
-              className="mb-6 bg-gradient-to-r from-amber-600 via-orange-600 to-red-400 bg-clip-text text-5xl leading-tight font-bold text-transparent md:text-7xl"
+              className="from-cambridge-blue via-hunyadi-yellow to-light-coral mb-6 bg-gradient-to-r bg-clip-text text-5xl leading-tight font-bold text-transparent md:text-7xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -130,7 +114,7 @@ export default function LandingPage() {
             >
               <Link
                 href="/login"
-                className="transform rounded-full bg-gradient-to-r from-amber-500 to-orange-600 px-8 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:from-amber-600 hover:to-orange-700"
+                className="from-hunyadi-yellow to-light-coral transform rounded-full bg-gradient-to-r px-8 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
               >
                 Join Your Community
               </Link>
@@ -143,7 +127,7 @@ export default function LandingPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-stone-100/40 py-16 backdrop-blur-sm">
+      <section className="bg-white/40 py-16 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <motion.div
             className="mx-auto grid max-w-4xl grid-cols-2 gap-8 md:grid-cols-4"
@@ -159,10 +143,12 @@ export default function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
               >
-                <div className="mb-2 text-4xl font-bold text-amber-600 md:text-5xl">
+                <div className="text-cambridge-blue mb-2 text-4xl font-bold md:text-5xl">
                   {stat.number}
                 </div>
-                <div className="font-medium text-stone-600">{stat.label}</div>
+                <div className="text-cambridge-blue/80 font-medium">
+                  {stat.label}
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -196,17 +182,17 @@ export default function LandingPage() {
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                className={`rounded-2xl border-2 p-8 ${feature.color} backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl`}
+                className={`rounded-3xl p-8 ${feature.color} shadow-lg backdrop-blur-sm transition-all duration-500 hover:-translate-y-4 hover:rotate-1 hover:shadow-2xl`}
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.5 + index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
+                whileHover={{ scale: 1.03, rotate: 1 }}
               >
-                <div className="mb-4 text-4xl">{feature.icon}</div>
-                <h3 className="mb-3 text-xl font-bold text-gray-800">
+                <div className="mb-6 text-5xl">{feature.icon}</div>
+                <h3 className="text-cambridge-blue mb-4 text-xl font-bold">
                   {feature.title}
                 </h3>
-                <p className="leading-relaxed text-gray-600">
+                <p className="text-cambridge-blue/80 leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
@@ -216,7 +202,7 @@ export default function LandingPage() {
       </section>
 
       {/* Community Showcase */}
-      <section className="bg-gradient-to-r from-stone-50 to-amber-50 py-20">
+      <section className="from-linen/80 to-tea-rose-red/80 bg-gradient-to-r py-20">
         <div className="container mx-auto px-4">
           <motion.div
             className="mb-16 text-center"
@@ -235,7 +221,7 @@ export default function LandingPage() {
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-12 lg:grid-cols-2">
             {/* Recent Forum Posts */}
             <motion.div
-              className="rounded-2xl border border-blue-200 bg-white/50 p-8 backdrop-blur-sm"
+              className="rounded-3xl border-2 border-white/50 bg-white/60 p-8 shadow-xl backdrop-blur-sm"
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 2.2 }}
@@ -261,7 +247,7 @@ export default function LandingPage() {
 
             {/* Marketplace Items */}
             <motion.div
-              className="rounded-2xl border border-green-200 bg-white/50 p-8 backdrop-blur-sm"
+              className="rounded-3xl border-2 border-white/50 bg-white/60 p-8 shadow-xl backdrop-blur-sm"
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 2.4 }}
@@ -298,7 +284,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-amber-600 to-orange-700 py-20">
+      <section className="from-cambridge-blue to-hunyadi-yellow bg-gradient-to-r py-20">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             className="mx-auto max-w-3xl"
@@ -309,13 +295,13 @@ export default function LandingPage() {
             <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
               Ready to Connect?
             </h2>
-            <p className="mb-8 text-xl text-orange-100">
+            <p className="mb-8 text-xl text-white/90">
               Join thousands of residents who are already enjoying seamless
               community living.
             </p>
             <Link
               href="/login"
-              className="inline-block transform rounded-full bg-white px-8 py-4 text-lg font-semibold text-amber-600 shadow-xl transition-all duration-300 hover:scale-105 hover:bg-gray-100"
+              className="text-cambridge-blue inline-block transform rounded-full bg-white px-8 py-4 text-lg font-semibold shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
             >
               Get Started Today
             </Link>

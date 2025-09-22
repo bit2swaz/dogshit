@@ -7,30 +7,56 @@
     "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-  /* Earthy warm color palette */
-  --color-primary: #d97706; /* Primary amber */
-  --color-primary-light: #f59e0b; /* Primary amber (light) */
-  --color-accent: #ea580c; /* Accent orange */
-  --color-accent-light: #fb923c; /* Accent orange (light) */
-  --color-bg-soft: #fef7ed; /* Soft cream background color */
+  /* Beautiful soft color palette */
+  --hunyadi-yellow: #f6bd60;
+  --linen: #f7ede2;
+  --tea-rose-red: #f5cac3;
+  --cambridge-blue: #84a59d;
+  --light-coral: #f28482;
 
-  /* Legacy brand colors (keeping for backward compatibility) */
-  --color-brand-light: #f59e0b; /* Lighter amber for accents */
-  --color-brand: #d97706; /* Your primary brand color - amber */
-  --color-brand-dark: #b45309; /* Darker amber for hover states */
+  /* Primary colors using the new palette */
+  --color-primary: #f6bd60; /* Hunyadi Yellow */
+  --color-primary-light: #f8d08a; /* Lighter Hunyadi Yellow */
+  --color-accent: #f28482; /* Light Coral */
+  --color-accent-light: #f5a5a3; /* Lighter Light Coral */
+  --color-bg-soft: #f7ede2; /* Linen */
+  --color-muted: #84a59d; /* Cambridge Blue */
+  --color-secondary: #f5cac3; /* Tea Rose Red */
+
+  /* Legacy brand colors (updated to new palette) */
+  --color-brand-light: #f8d08a; /* Lighter Hunyadi Yellow */
+  --color-brand: #f6bd60; /* Hunyadi Yellow */
+  --color-brand-dark: #e5a743; /* Darker Hunyadi Yellow */
 }
 
 body {
-  /* A warm, earthy gradient using the new soft background color */
-  background-color: #fef7ed; /* Fallback to our new cream bg-soft color */
-  background-image: radial-gradient(circle at top left, #ffffff, #fef7ed);
+  /* A warm, soft gradient using the new linen background color */
+  background-color: #f7ede2; /* Fallback to linen */
+  background-image: radial-gradient(circle at top left, #ffffff, #f7ede2);
 }
 
-/* Add a subtle, smooth transition to almost everything */
+/* Add softer, more rounded styling globally */
 * {
-  transition-property:
-    color, background-color, border-color, text-decoration-color, fill, stroke,
-    opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 200ms;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced rounded corners and soft shadows */
+.rounded-soft {
+  border-radius: 1rem;
+}
+
+.rounded-extra-soft {
+  border-radius: 1.5rem;
+}
+
+.shadow-soft {
+  box-shadow:
+    0 4px 20px rgba(132, 165, 157, 0.1),
+    0 2px 8px rgba(132, 165, 157, 0.06);
+}
+
+.shadow-soft-hover {
+  box-shadow:
+    0 8px 30px rgba(132, 165, 157, 0.15),
+    0 4px 12px rgba(132, 165, 157, 0.1);
 }

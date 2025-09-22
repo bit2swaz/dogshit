@@ -13,7 +13,7 @@ const Navbar = () => {
   const { user, logout, isLoading } = useAuth();
 
   const navigationLinks = [
-    { name: "Home", href: "/" },
+    { name: "Home", href: "/home" },
     { name: "Forum", href: "/forum" },
     { name: "Marketplace", href: "/marketplace" },
     { name: "Gate", href: "/gate" },
@@ -71,7 +71,27 @@ const Navbar = () => {
   }
 
   return (
-    <nav className={`border-b border-amber-200 bg-stone-50 ${inter.className}`}>
+    <nav
+      className={`border-tea-rose-red/30 bg-linen/90 border-b backdrop-blur-md ${inter.className}`}
+    >
+      {/* <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"> */}
+      {/* <div className="flex h-16 items-center justify-between"> */}
+      {/* Logo */}
+      {/* <div className="flex-shrink-0"> */}
+      {/* <Link
+              href="/"
+              className="flex items-center space-x-2 transition-all duration-200 hover:scale-105"
+            > */}
+      {/* <div className="from-hunyadi-yellow to-light-coral flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br shadow-lg">
+                <span className="text-xs font-bold text-white">NH</span>
+              </div>
+              <span className="text-cambridge-blue text-xl font-bold">
+                NeighbourhoodHub
+              </span> */}
+      {/* </Link>
+          </div>
+        </div>
+      </div> */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
