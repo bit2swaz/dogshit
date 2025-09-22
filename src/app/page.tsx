@@ -306,10 +306,10 @@ export default function LandingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 2.6 }}
           >
-            <h2 className="mb-6 text-3xl font-bold text-cambridge-blue sm:text-4xl md:text-5xl">
+            <h2 className="text-cambridge-blue mb-6 text-3xl font-bold sm:text-4xl md:text-5xl">
               Ready to Connect?
             </h2>
-            <p className="mb-8 text-lg text-cambridge-blue/80 sm:text-xl">
+            <p className="text-cambridge-blue/80 mb-8 text-lg sm:text-xl">
               Join thousands of residents who are already enjoying seamless
               community living.
             </p>
@@ -328,8 +328,10 @@ export default function LandingPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="mb-6 flex items-center justify-center space-x-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-hunyadi-yellow to-light-coral border-2 border-white/20 shadow-xl ring-2 ring-white/10">
-                <span className="text-sm font-bold text-white drop-shadow-sm">NH</span>
+              <div className="from-hunyadi-yellow to-light-coral flex h-10 w-10 items-center justify-center rounded-xl border-2 border-white/20 bg-gradient-to-br shadow-xl ring-2 ring-white/10">
+                <span className="text-sm font-bold text-white drop-shadow-sm">
+                  NH
+                </span>
               </div>
               <span className="text-2xl font-bold text-white">
                 NeighbourhoodHub
