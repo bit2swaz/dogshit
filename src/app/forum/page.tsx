@@ -97,128 +97,166 @@ const ForumPage = () => {
 
   return (
     <AuthGuard>
-      <div className={`min-h-screen bg-slate-50 ${inter.className}`}>
+      <div
+        className={`from-linen via-tea-rose-red/10 to-hunyadi-yellow/20 min-h-screen bg-gradient-to-br ${inter.className}`}
+      >
         {/* Success Toast */}
         {showToast && (
-          <div className="fixed top-4 right-4 z-50 rounded-lg bg-green-500 px-6 py-3 text-white shadow-lg">
-            Post created successfully!
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            className="glass-card text-cambridge-blue shadow-soft fixed top-4 right-4 z-50 rounded-2xl px-6 py-3"
+          >
+            ✨ Post created successfully!
+          </motion.div>
         )}
 
         {/* Modal */}
-        {isModalOpen && (
-          <div className="bg-opacity-50 fixed inset-0 z-40 flex items-center justify-center bg-black">
-            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-              <h2 className="mb-4 text-xl font-bold text-gray-900">
-                Create New Post
-              </h2>
-              <form onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Title
-                  </label>
-                  <input
-                    type="text"
-                    className="focus:border-brand focus:ring-brand/50 w-full rounded-lg border border-gray-300 bg-slate-50 px-3 py-2 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
-                    value={formData.title}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        title: e.target.value,
-                      }))
-                    }
-                    required
-                  />
-                </div>
-                <div className="mb-6">
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Content
-                  </label>
-                  <textarea
-                    rows={4}
-                    className="focus:border-brand focus:ring-brand/50 w-full rounded-lg border border-gray-300 bg-slate-50 px-3 py-2 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
-                    value={formData.content}
-                    onChange={(e) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        content: e.target.value,
-                      }))
-                    }
-                    required
-                  />
-                </div>
-                <div className="flex gap-3">
-                  <button
-                    type="submit"
-                    className="flex-1 transform rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-all duration-200 hover:scale-105 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none active:scale-95"
-                  >
-                    Create Post
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="flex-1 transform rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-all duration-200 hover:scale-105 hover:bg-gray-50 focus:ring-2 focus:ring-blue-500 focus:outline-none active:scale-95"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-
-        <div className="container mx-auto px-4 py-8">
-          {/* Header Section */}
-          <div className="mb-8">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900">
-                  Community Forum
-                </h1>
-                <p className="text-gray-600">
-                  Connect with your neighbors and stay informed
-                </p>
-              </div>
-
-              {/* Create New Post Button */}
-              <button
-                onClick={() => setIsModalOpen(true)}
-                className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex transform items-center gap-2 rounded-lg px-6 py-3 font-semibold text-white transition-all duration-200 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:outline-none active:scale-95"
+        <AnimatePresence>
+          {isModalOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-40 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="glass-card shadow-soft-hover mx-4 w-full max-w-md rounded-2xl p-6"
               >
-                <svg
-                  className="h-5 w-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                  />
-                </svg>
-                Create New Post
-              </button>
+                <h2 className="text-cambridge-blue mb-6 text-2xl font-bold">
+                  Create New Post
+                </h2>
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-4">
+                    <label className="text-cambridge-blue/80 mb-2 block text-sm font-medium">
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      className="input-modern w-full"
+                      value={formData.title}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          title: e.target.value,
+                        }))
+                      }
+                      required
+                    />
+                  </div>
+                  <div className="mb-6">
+                    <label className="text-cambridge-blue/80 mb-2 block text-sm font-medium">
+                      Content
+                    </label>
+                    <textarea
+                      rows={4}
+                      className="input-modern w-full resize-none"
+                      value={formData.content}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          content: e.target.value,
+                        }))
+                      }
+                      required
+                    />
+                  </div>
+                  <div className="flex gap-3">
+                    <button type="submit" className="btn-primary flex-1">
+                      Create Post
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(false)}
+                      className="btn-secondary flex-1"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        <div className="page-container py-8">
+          {/* Header Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-12 text-center"
+          >
+            <div className="mb-8">
+              <h1 className="text-cambridge-blue mb-4 text-4xl font-bold sm:text-5xl">
+                Community Forum
+              </h1>
+              <p className="text-cambridge-blue/80 text-lg sm:text-xl">
+                Connect with your neighbors and stay informed
+              </p>
             </div>
-          </div>
+
+            {/* Create New Post Button */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setIsModalOpen(true)}
+              className="btn-primary inline-flex items-center gap-2"
+            >
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+              Create New Post
+            </motion.button>
+          </motion.div>
 
           {/* Forum Stats */}
-          <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-4">
-            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
-              <h3 className="text-2xl font-bold text-gray-900">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="mb-12 grid grid-cols-2 gap-4 md:grid-cols-4"
+          >
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="glass-card shadow-soft cursor-pointer rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue text-3xl font-bold">
                 {posts.length}
               </h3>
-              <p className="text-sm text-gray-600">Total Posts</p>
-            </div>
-            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
-              <h3 className="text-2xl font-bold text-gray-900">
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Total Posts
+              </p>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="glass-card shadow-soft cursor-pointer rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue text-3xl font-bold">
                 {new Set(posts.map((post) => post.author)).size}
               </h3>
-              <p className="text-sm text-gray-600">Active Members</p>
-            </div>
-            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
-              <h3 className="text-2xl font-bold text-gray-900">
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Active Members
+              </p>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="glass-card shadow-soft cursor-pointer rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue text-3xl font-bold">
                 {
                   posts.filter((post) => {
                     const postDate = new Date(post.timestamp);
@@ -227,10 +265,15 @@ const ForumPage = () => {
                   }).length
                 }
               </h3>
-              <p className="text-sm text-gray-600">Today&apos;s Posts</p>
-            </div>
-            <div className="cursor-pointer rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
-              <h3 className="text-2xl font-bold text-gray-900">
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                Today&apos;s Posts
+              </p>
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, y: -5 }}
+              className="glass-card shadow-soft cursor-pointer rounded-2xl p-6 text-center"
+            >
+              <h3 className="text-cambridge-blue text-3xl font-bold">
                 {
                   posts.filter((post) => {
                     const postDate = new Date(post.timestamp);
@@ -240,42 +283,53 @@ const ForumPage = () => {
                   }).length
                 }
               </h3>
-              <p className="text-sm text-gray-600">This Week</p>
-            </div>
-          </div>
+              <p className="text-cambridge-blue/70 text-sm font-medium">
+                This Week
+              </p>
+            </motion.div>
+          </motion.div>
 
           {/* Forum Posts */}
-          <div className="space-y-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="space-y-8"
+          >
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-cambridge-blue text-2xl font-semibold">
                 Recent Discussions
               </h2>
               <div className="flex items-center gap-2">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => setFilter("all")}
-                  className={`transform rounded-md border px-3 py-1.5 text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
+                  className={`rounded-2xl px-4 py-2 text-sm font-medium transition-all duration-200 ${
                     filter === "all"
-                      ? "border-blue-500 bg-blue-50 text-blue-700"
-                      : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+                      ? "from-hunyadi-yellow to-light-coral text-cambridge-blue shadow-soft bg-gradient-to-r"
+                      : "glass-card text-cambridge-blue/70 hover:text-cambridge-blue"
                   }`}
                 >
                   All
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => setFilter("recent")}
-                  className={`transform rounded-md border px-3 py-1.5 text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95 ${
+                  className={`rounded-2xl px-4 py-2 text-sm font-medium transition-all duration-200 ${
                     filter === "recent"
-                      ? "border-blue-500 bg-blue-50 text-blue-700"
-                      : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
+                      ? "from-hunyadi-yellow to-light-coral text-cambridge-blue shadow-soft bg-gradient-to-r"
+                      : "glass-card text-cambridge-blue/70 hover:text-cambridge-blue"
                   }`}
                 >
                   Recent
-                </button>
+                </motion.button>
               </div>
             </div>
 
             {/* Posts List */}
-            <div className="space-y-4">
+            <div className="space-y-6">
               <AnimatePresence>
                 {filteredPosts.slice(0, visiblePosts).map((post, index) => (
                   <motion.div
@@ -284,11 +338,11 @@ const ForumPage = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{
-                      duration: 4,
+                      duration: 0.4,
                       type: "spring",
                       stiffness: 100,
                       damping: 15,
-                      delay: index < 2 ? index * 0.1 : 0, // Stagger effect for first 2 posts
+                      delay: index < 2 ? index * 0.1 : 0,
                     }}
                     whileHover={{
                       scale: 1.02,
@@ -296,20 +350,22 @@ const ForumPage = () => {
                       transition: { duration: 0.2 },
                     }}
                     layout
-                    className="cursor-pointer rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
+                    className="glass-card shadow-soft hover:shadow-soft-hover cursor-pointer rounded-2xl p-6 transition-all duration-200"
                   >
                     {/* Post Header */}
                     <div className="mb-4">
-                      <h3 className="mb-2 text-lg font-bold text-gray-900">
+                      <h3 className="text-cambridge-blue mb-2 text-xl font-bold">
                         {post.title}
                       </h3>
-                      <div className="flex items-center gap-2 text-sm text-slate-500">
+                      <div className="text-cambridge-blue/60 flex items-center gap-2 text-sm">
                         <div className="flex items-center gap-2">
                           {/* Author Avatar */}
-                          <div className="bg-brand flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white">
+                          <div className="from-hunyadi-yellow to-light-coral text-cambridge-blue shadow-soft flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br text-xs font-semibold">
                             {post.author.charAt(0)}
                           </div>
-                          <span className="font-medium">{post.author}</span>
+                          <span className="text-cambridge-blue/80 font-medium">
+                            {post.author}
+                          </span>
                         </div>
                         <span>•</span>
                         <span>{getTimeAgo(post.timestamp)}</span>
@@ -320,7 +376,7 @@ const ForumPage = () => {
 
                     {/* Post Content Preview */}
                     <div className="mb-4">
-                      <p className="line-clamp-3 text-gray-700">
+                      <p className="text-cambridge-blue/80 line-clamp-3 leading-relaxed">
                         {post.content}
                       </p>
                     </div>
@@ -328,7 +384,11 @@ const ForumPage = () => {
                     {/* Post Actions */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <button className="hover:text-brand flex items-center gap-1.5 text-sm text-gray-600 transition-colors">
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="text-cambridge-blue/60 hover:text-cambridge-blue flex items-center gap-1.5 text-sm transition-colors"
+                        >
                           <svg
                             className="h-4 w-4"
                             fill="none"
@@ -343,8 +403,12 @@ const ForumPage = () => {
                             />
                           </svg>
                           Like
-                        </button>
-                        <button className="hover:text-brand flex items-center gap-1.5 text-sm text-gray-600 transition-colors">
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="text-cambridge-blue/60 hover:text-cambridge-blue flex items-center gap-1.5 text-sm transition-colors"
+                        >
                           <svg
                             className="h-4 w-4"
                             fill="none"
@@ -359,8 +423,12 @@ const ForumPage = () => {
                             />
                           </svg>
                           Reply
-                        </button>
-                        <button className="hover:text-brand flex items-center gap-1.5 text-sm text-gray-600 transition-colors">
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          className="text-cambridge-blue/60 hover:text-cambridge-blue flex items-center gap-1.5 text-sm transition-colors"
+                        >
                           <svg
                             className="h-4 w-4"
                             fill="none"
@@ -375,12 +443,16 @@ const ForumPage = () => {
                             />
                           </svg>
                           Share
-                        </button>
+                        </motion.button>
                       </div>
 
-                      <button className="text-brand hover:text-brand-dark text-sm font-medium transition-colors">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="text-cambridge-blue hover:text-light-coral text-sm font-medium transition-colors"
+                      >
                         Read More →
-                      </button>
+                      </motion.button>
                     </div>
                   </motion.div>
                 ))}
@@ -389,9 +461,13 @@ const ForumPage = () => {
 
             {/* Empty State */}
             {filteredPosts.length === 0 && (
-              <div className="rounded-lg border border-gray-200 bg-white p-12 text-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="glass-card shadow-soft rounded-2xl p-12 text-center"
+              >
                 <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
+                  className="text-cambridge-blue/40 mx-auto h-12 w-12"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -403,33 +479,37 @@ const ForumPage = () => {
                     d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                   />
                 </svg>
-                <h3 className="mt-4 text-lg font-medium text-gray-900">
+                <h3 className="text-cambridge-blue mt-4 text-lg font-medium">
                   No posts yet
                 </h3>
-                <p className="mt-2 text-gray-600">
+                <p className="text-cambridge-blue/70 mt-2">
                   Be the first to start a conversation in your community!
                 </p>
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => setIsModalOpen(true)}
-                  className="bg-brand hover:bg-brand-dark mt-4 inline-flex items-center gap-2 rounded-lg px-4 py-2 font-semibold text-white transition-colors duration-200"
+                  className="btn-primary mt-4"
                 >
                   Create First Post
-                </button>
-              </div>
+                </motion.button>
+              </motion.div>
             )}
 
             {/* Load More */}
             {filteredPosts.length > visiblePosts && (
               <div className="text-center">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={loadMorePosts}
-                  className="rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                  className="btn-secondary"
                 >
                   Load More Posts
-                </button>
+                </motion.button>
               </div>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </AuthGuard>
