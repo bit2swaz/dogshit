@@ -7,18 +7,23 @@
     "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
+  /* Playful warm color palette */
+  --color-primary: #8b5cf6; /* Primary purple */
+  --color-primary-light: #a78bfa; /* Primary purple (light) */
+  --color-accent: #f97316; /* Accent orange */
+  --color-accent-light: #fb923c; /* Accent orange (light) */
+  --color-bg-soft: #f3f4f6; /* Soft background color */
+
+  /* Legacy brand colors (keeping for backward compatibility) */
   --color-brand-light: #3b82f6; /* Lighter blue for accents */
   --color-brand: #2563eb; /* Your primary brand color */
   --color-brand-dark: #1d4ed8; /* Darker blue for hover states */
 }
 
 body {
-  /* A very subtle gradient gives depth over a flat color */
-  background-color: #f8f9fa; /* Fallback color */
-  background-image: radial-gradient(circle at top left, #ffffff, #f0f2f5);
-
-  background-color: #ffffff;
-  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e5e7eb' fill-opacity='0.54'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  /* A warm, gentle gradient using the new soft background color */
+  background-color: #f3f4f6; /* Fallback to our new bg-soft color */
+  background-image: radial-gradient(circle at top left, #ffffff, #f3f4f6);
 }
 
 /* Add a subtle, smooth transition to almost everything */
@@ -28,22 +33,4 @@ body {
     opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
-}
-
-/* 3. Add custom animations */
-@layer utilities {
-  @keyframes fadeIn {
-    '0%': {
-      opacity: "0";
-      transform: translateY(10px);
-    }
-    '100%': {
-      opacity: "1";
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fadeIn {
-    animation: fadeIn 0.5s ease-in-out;
-  }
 }
