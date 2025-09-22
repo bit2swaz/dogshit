@@ -339,7 +339,7 @@ const ServicesPage = () => {
           )}
         </AnimatePresence>
 
-        <div className="container mx-auto px-4 py-12 sm:py-16">
+        <div className="page-container py-12 sm:py-16">
           {/* Header Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -639,122 +639,161 @@ const ServicesPage = () => {
         </div>
 
         {/* Add Service Provider Modal */}
-        {showAddModal && (
-          <div className="bg-opacity-50 fixed inset-0 z-50 flex items-center justify-center bg-black">
-            <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-              <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-gray-900">
-                  Add Service Provider
-                </h2>
-                <button
+        <AnimatePresence>
+          {showAddModal && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="bg-cambridge-blue/20 fixed inset-0 z-50 flex items-center justify-center px-4 backdrop-blur-sm"
+              onClick={() => setShowAddModal(false)}
+            >
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.8, opacity: 0 }}
+                transition={{ type: "spring", duration: 0.4 }}
+                className="glass-card shadow-soft relative w-full max-w-md rounded-3xl p-8"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <motion.button
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
                   onClick={() => setShowAddModal(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="from-tea-rose-red/20 to-light-coral/20 text-tea-rose-red hover:from-tea-rose-red/30 hover:to-light-coral/30 absolute top-6 right-6 rounded-2xl bg-gradient-to-r p-3 transition-all duration-300"
                 >
-                  <svg
-                    className="h-6 w-6"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
+                  ✕
+                </motion.button>
 
-              <form onSubmit={handleAddService} className="space-y-4">
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Category
-                  </label>
-                  <select
-                    name="category"
-                    value={addFormData.category}
-                    onChange={handleAddFormChange}
-                    required
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                  >
-                    <option value="">Select a category</option>
-                    <option value="Pre-Approved Plumbers">
-                      Pre-Approved Plumbers
-                    </option>
-                    <option value="Pre-Approved Electricians">
-                      Pre-Approved Electricians
-                    </option>
-                    <option value="Cleaning Services">Cleaning Services</option>
-                    <option value="Delivery Services">Delivery Services</option>
-                    <option value="Other Services">Other Services</option>
-                  </select>
-                </div>
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.1 }}
+                >
+                  <h2 className="text-cambridge-blue mb-8 text-3xl font-bold">
+                    Add Service Provider
+                  </h2>
 
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Service Provider Name
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={addFormData.name}
-                    onChange={handleAddFormChange}
-                    required
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                    placeholder="Enter provider name"
-                  />
-                </div>
+                  <form onSubmit={handleAddService} className="space-y-6">
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <label className="text-cambridge-blue mb-3 block text-lg font-bold">
+                        Category
+                      </label>
+                      <select
+                        name="category"
+                        value={addFormData.category}
+                        onChange={handleAddFormChange}
+                        required
+                        className="input-modern w-full"
+                      >
+                        <option value="">Select a category</option>
+                        <option value="Pre-Approved Plumbers">
+                          Pre-Approved Plumbers
+                        </option>
+                        <option value="Pre-Approved Electricians">
+                          Pre-Approved Electricians
+                        </option>
+                        <option value="Cleaning Services">
+                          Cleaning Services
+                        </option>
+                        <option value="Delivery Services">
+                          Delivery Services
+                        </option>
+                        <option value="Other Services">Other Services</option>
+                      </select>
+                    </motion.div>
 
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Contact Number
-                  </label>
-                  <input
-                    type="tel"
-                    name="contact"
-                    value={addFormData.contact}
-                    onChange={handleAddFormChange}
-                    required
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                    placeholder="Enter contact number"
-                  />
-                </div>
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 }}
+                    >
+                      <label className="text-cambridge-blue mb-3 block text-lg font-bold">
+                        Service Provider Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={addFormData.name}
+                        onChange={handleAddFormChange}
+                        required
+                        className="input-modern w-full"
+                        placeholder="Enter provider name"
+                      />
+                    </motion.div>
 
-                <div>
-                  <label className="mb-2 block text-sm font-medium text-gray-700">
-                    Description
-                  </label>
-                  <textarea
-                    name="description"
-                    value={addFormData.description}
-                    onChange={handleAddFormChange}
-                    required
-                    rows={3}
-                    className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
-                    placeholder="Describe the services offered"
-                  />
-                </div>
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 }}
+                    >
+                      <label className="text-cambridge-blue mb-3 block text-lg font-bold">
+                        Contact Number
+                      </label>
+                      <input
+                        type="tel"
+                        name="contact"
+                        value={addFormData.contact}
+                        onChange={handleAddFormChange}
+                        required
+                        className="input-modern w-full"
+                        placeholder="Enter contact number"
+                      />
+                    </motion.div>
 
-                <div className="flex gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setShowAddModal(false)}
-                    className="flex-1 rounded-lg border border-gray-300 px-4 py-2 font-medium text-gray-700 hover:bg-gray-50"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="flex-1 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700"
-                  >
-                    Add Provider
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 }}
+                    >
+                      <label className="text-cambridge-blue mb-3 block text-lg font-bold">
+                        Description
+                      </label>
+                      <textarea
+                        name="description"
+                        value={addFormData.description}
+                        onChange={handleAddFormChange}
+                        required
+                        rows={4}
+                        className="input-modern w-full resize-none"
+                        placeholder="Describe the services offered"
+                      />
+                    </motion.div>
+
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.6 }}
+                      className="flex gap-4 pt-4"
+                    >
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        type="button"
+                        onClick={() => setShowAddModal(false)}
+                        className="btn-secondary flex-1 px-6 py-4 text-lg font-semibold"
+                      >
+                        Cancel
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        type="submit"
+                        className="btn-primary flex-1 px-6 py-4 text-lg font-semibold"
+                      >
+                        Add Provider
+                      </motion.button>
+                    </motion.div>
+                  </form>
+                </motion.div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </AuthGuard>
   );

@@ -146,7 +146,7 @@ const ComplaintsPage = () => {
       <div
         className={`from-linen via-tea-rose-red/10 to-hunyadi-yellow/20 min-h-screen bg-gradient-to-br ${inter.className}`}
       >
-        <div className="container mx-auto px-4 py-12 sm:py-16">
+        <div className="page-container py-12 sm:py-16">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

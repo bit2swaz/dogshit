@@ -236,7 +236,7 @@ const GatePage = () => {
           )}
         </AnimatePresence>
 
-        <div className="container mx-auto px-4 py-12 sm:py-16">
+        <div className="page-container py-12 sm:py-16">
           {/* Header Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
