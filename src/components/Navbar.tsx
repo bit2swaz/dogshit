@@ -45,12 +45,19 @@ const Navbar = () => {
   // Show loading state
   if (isLoading) {
     return (
-      <nav className={`border-b border-slate-200 bg-white ${inter.className}`}>
+      <nav
+        className={`border-b border-amber-200 bg-stone-50 ${inter.className}`}
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex-shrink-0">
-              <Link href="/" className="text-xl font-bold text-gray-900">
-                NeighborhoodHub
+              <Link href="/" className="flex items-center space-x-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-amber-400 to-orange-500">
+                  <span className="text-xs font-bold text-white">NH</span>
+                </div>
+                <span className="text-xl font-bold text-stone-800">
+                  NeighbourhoodHub
+                </span>
               </Link>
             </div>
             <div className="flex items-center space-x-2">
@@ -64,16 +71,21 @@ const Navbar = () => {
   }
 
   return (
-    <nav className={`border-b border-slate-200 bg-white ${inter.className}`}>
+    <nav className={`border-b border-amber-200 bg-stone-50 ${inter.className}`}>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className="text-xl font-bold text-gray-900 transition-all duration-200 hover:scale-105"
+              className="flex items-center space-x-2 transition-all duration-200 hover:scale-105"
             >
-              NeighborhoodHub
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-amber-400 to-orange-500">
+                <span className="text-xs font-bold text-white">NH</span>
+              </div>
+              <span className="text-xl font-bold text-stone-800">
+                NeighbourhoodHub
+              </span>
             </Link>
           </div>
 
@@ -100,9 +112,9 @@ const Navbar = () => {
               <div className="relative hidden md:block">
                 <button
                   onClick={toggleProfileDropdown}
-                  className="focus:ring-brand flex transform items-center space-x-2 rounded-md bg-gray-50 px-3 py-2 text-sm font-medium text-gray-700 transition-all duration-200 hover:scale-105 hover:bg-gray-100 focus:ring-2 focus:ring-offset-2 focus:outline-none active:scale-95"
+                  className="flex transform items-center space-x-2 rounded-md bg-amber-50 px-3 py-2 text-sm font-medium text-stone-700 transition-all duration-200 hover:scale-105 hover:bg-amber-100 focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:outline-none active:scale-95"
                 >
-                  <div className="bg-brand flex h-8 w-8 items-center justify-center rounded-full text-white">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500 text-white">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                   <span className="hidden lg:block">Welcome, {user.name}</span>
@@ -303,7 +315,7 @@ const Navbar = () => {
             {/* User Info Section */}
             <div className="border-b border-gray-200 px-4 py-4">
               <div className="flex items-center space-x-3">
-                <div className="bg-brand flex h-10 w-10 items-center justify-center rounded-full font-medium text-white">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-amber-500 font-medium text-white">
                   {user.name.charAt(0).toUpperCase()}
                 </div>
                 <div>

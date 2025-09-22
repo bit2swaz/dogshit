@@ -7,23 +7,23 @@
     "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-  /* Playful warm color palette */
-  --color-primary: #8b5cf6; /* Primary purple */
-  --color-primary-light: #a78bfa; /* Primary purple (light) */
-  --color-accent: #f97316; /* Accent orange */
+  /* Earthy warm color palette */
+  --color-primary: #d97706; /* Primary amber */
+  --color-primary-light: #f59e0b; /* Primary amber (light) */
+  --color-accent: #ea580c; /* Accent orange */
   --color-accent-light: #fb923c; /* Accent orange (light) */
-  --color-bg-soft: #f3f4f6; /* Soft background color */
+  --color-bg-soft: #fef7ed; /* Soft cream background color */
 
   /* Legacy brand colors (keeping for backward compatibility) */
-  --color-brand-light: #3b82f6; /* Lighter blue for accents */
-  --color-brand: #2563eb; /* Your primary brand color */
-  --color-brand-dark: #1d4ed8; /* Darker blue for hover states */
+  --color-brand-light: #f59e0b; /* Lighter amber for accents */
+  --color-brand: #d97706; /* Your primary brand color - amber */
+  --color-brand-dark: #b45309; /* Darker amber for hover states */
 }
 
 body {
-  /* A warm, gentle gradient using the new soft background color */
-  background-color: #f3f4f6; /* Fallback to our new bg-soft color */
-  background-image: radial-gradient(circle at top left, #ffffff, #f3f4f6);
+  /* A warm, earthy gradient using the new soft background color */
+  background-color: #fef7ed; /* Fallback to our new cream bg-soft color */
+  background-image: radial-gradient(circle at top left, #ffffff, #fef7ed);
 }
 
 /* Add a subtle, smooth transition to almost everything */

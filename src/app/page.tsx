@@ -16,7 +16,7 @@ export default function LandingPage() {
       title: "Community Forum",
       description:
         "Stay connected with neighbors, share updates, and participate in community discussions.",
-      color: "bg-blue-50 border-blue-200",
+      color: "bg-amber-50 border-amber-200",
     },
     {
       icon: "🛒",
@@ -30,14 +30,14 @@ export default function LandingPage() {
       title: "Gate Management",
       description:
         "Seamless visitor and delivery management with digital gate passes.",
-      color: "bg-purple-50 border-purple-200",
+      color: "bg-orange-50 border-orange-200",
     },
     {
       icon: "🔧",
       title: "Services Directory",
       description:
         "Access pre-approved service providers for all your home maintenance needs.",
-      color: "bg-orange-50 border-orange-200",
+      color: "bg-stone-50 border-stone-200",
     },
     {
       icon: "📋",
@@ -51,7 +51,7 @@ export default function LandingPage() {
       title: "Staff Contacts",
       description:
         "Direct access to security, maintenance, and management staff.",
-      color: "bg-indigo-50 border-indigo-200",
+      color: "bg-yellow-50 border-yellow-200",
     },
   ];
 
@@ -64,23 +64,23 @@ export default function LandingPage() {
 
   return (
     <div
-      className={`min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 ${inter.className}`}
+      className={`min-h-screen bg-gradient-to-br from-stone-50 via-amber-50 to-orange-50 ${inter.className}`}
     >
       {/* Navigation */}
-      <nav className="fixed top-0 z-50 w-full border-b border-blue-100 bg-white/80 backdrop-blur-md">
+      <nav className="fixed top-0 z-50 w-full border-b border-amber-200 bg-white/80 backdrop-blur-md">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-400 to-indigo-500">
-                <span className="text-sm font-bold text-white">E</span>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-amber-400 to-orange-500">
+                <span className="text-xs font-bold text-white">NH</span>
               </div>
-              <span className="text-xl font-bold text-gray-800">
-                {society.name}
+              <span className="text-xl font-bold text-stone-800">
+                NeighborhoodHub
               </span>
             </div>
             <Link
               href="/login"
-              className="transform rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-2 font-medium text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-blue-600 hover:to-indigo-700"
+              className="transform rounded-full bg-gradient-to-r from-amber-500 to-orange-600 px-6 py-2 font-medium text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-amber-600 hover:to-orange-700"
             >
               Get Started
             </Link>
@@ -98,7 +98,7 @@ export default function LandingPage() {
             transition={{ duration: 0.8 }}
           >
             <motion.h1
-              className="mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-5xl leading-tight font-bold text-transparent md:text-7xl"
+              className="mb-6 bg-gradient-to-r from-amber-600 via-orange-600 to-red-400 bg-clip-text text-5xl leading-tight font-bold text-transparent md:text-7xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -130,7 +130,7 @@ export default function LandingPage() {
             >
               <Link
                 href="/login"
-                className="transform rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 px-8 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:from-blue-600 hover:to-indigo-700"
+                className="transform rounded-full bg-gradient-to-r from-amber-500 to-orange-600 px-8 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:from-amber-600 hover:to-orange-700"
               >
                 Join Your Community
               </Link>
@@ -143,7 +143,7 @@ export default function LandingPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-white/30 py-16 backdrop-blur-sm">
+      <section className="bg-stone-100/40 py-16 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <motion.div
             className="mx-auto grid max-w-4xl grid-cols-2 gap-8 md:grid-cols-4"
@@ -159,10 +159,10 @@ export default function LandingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
               >
-                <div className="mb-2 text-4xl font-bold text-indigo-600 md:text-5xl">
+                <div className="mb-2 text-4xl font-bold text-amber-600 md:text-5xl">
                   {stat.number}
                 </div>
-                <div className="font-medium text-gray-600">{stat.label}</div>
+                <div className="font-medium text-stone-600">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
@@ -216,7 +216,7 @@ export default function LandingPage() {
       </section>
 
       {/* Community Showcase */}
-      <section className="bg-gradient-to-r from-blue-50 to-indigo-50 py-20">
+      <section className="bg-gradient-to-r from-stone-50 to-amber-50 py-20">
         <div className="container mx-auto px-4">
           <motion.div
             className="mb-16 text-center"
@@ -298,7 +298,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-indigo-700 py-20">
+      <section className="bg-gradient-to-r from-amber-600 to-orange-700 py-20">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             className="mx-auto max-w-3xl"
@@ -309,13 +309,13 @@ export default function LandingPage() {
             <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
               Ready to Connect?
             </h2>
-            <p className="mb-8 text-xl text-blue-100">
+            <p className="mb-8 text-xl text-orange-100">
               Join thousands of residents who are already enjoying seamless
               community living.
             </p>
             <Link
               href="/login"
-              className="inline-block transform rounded-full bg-white px-8 py-4 text-lg font-semibold text-blue-600 shadow-xl transition-all duration-300 hover:scale-105 hover:bg-gray-100"
+              className="inline-block transform rounded-full bg-white px-8 py-4 text-lg font-semibold text-amber-600 shadow-xl transition-all duration-300 hover:scale-105 hover:bg-gray-100"
             >
               Get Started Today
             </Link>
@@ -328,14 +328,14 @@ export default function LandingPage() {
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="mb-4 flex items-center justify-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-blue-400 to-indigo-500">
-                <span className="text-sm font-bold text-white">E</span>
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-amber-400 to-orange-500">
+                <span className="text-xs font-bold text-white">NH</span>
               </div>
-              <span className="text-xl font-bold">{society.name}</span>
+              <span className="text-xl font-bold">NeighbourhoodHub</span>
             </div>
             <p className="mb-4 text-gray-400">Your Community, Connected.</p>
             <p className="text-sm text-gray-500">
-              © 2025 {society.name}. All rights reserved.
+              © 2025 Alt-F4. All rights reserved.
             </p>
           </div>
         </div>
