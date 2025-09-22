@@ -199,7 +199,7 @@ const StaffContactsPage = () => {
   return (
     <AuthGuard>
       <div
-        className={`from-linen via-tea-rose-red/10 to-hunyadi-yellow/20 min-h-screen bg-gradient-to-br ${inter.className}`}
+        className={`from-linen via-tea-rose-red/10 to-hunyadi-yellow/20 min-h-screen bg-gradient-to-br pb-12 ${inter.className}`}
       >
         <div className="page-container py-12 sm:py-16">
           {/* Header Section */}
