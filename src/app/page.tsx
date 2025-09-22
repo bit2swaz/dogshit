@@ -82,7 +82,7 @@ export default function LandingPage() {
             transition={{ duration: 0.8 }}
           >
             <motion.h1
-              className="from-cambridge-blue via-hunyadi-yellow to-light-coral mb-6 bg-gradient-to-r bg-clip-text text-5xl leading-tight font-bold text-transparent md:text-7xl"
+              className="text-cambridge-blue mb-6 text-5xl leading-tight font-bold md:text-7xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
@@ -93,7 +93,7 @@ export default function LandingPage() {
             </motion.h1>
 
             <motion.p
-              className="mb-12 text-xl leading-relaxed text-gray-600 md:text-2xl"
+              className="text-cambridge-blue/80 mb-12 text-xl leading-relaxed md:text-2xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
@@ -101,7 +101,7 @@ export default function LandingPage() {
               Experience seamless community living with our comprehensive
               platform.
               <br />
-              <span className="font-semibold text-indigo-600">
+              <span className="text-cambridge-blue font-semibold">
                 Everything you need, all in one place.
               </span>
             </motion.p>
@@ -114,11 +114,11 @@ export default function LandingPage() {
             >
               <Link
                 href="/login"
-                className="from-hunyadi-yellow to-light-coral transform rounded-full bg-gradient-to-r px-8 py-4 text-lg font-semibold text-white shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                className="from-hunyadi-yellow to-light-coral text-cambridge-blue transform rounded-full bg-gradient-to-r px-8 py-4 text-lg font-semibold shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
               >
                 Join Your Community
               </Link>
-              <button className="rounded-full border-2 border-gray-300 bg-white/50 px-8 py-4 text-lg font-semibold text-gray-700 backdrop-blur-sm transition-all duration-300 hover:border-indigo-400 hover:text-indigo-600">
+              <button className="border-cambridge-blue/50 text-cambridge-blue hover:border-cambridge-blue transform rounded-full border-2 bg-white/80 px-8 py-4 text-lg font-semibold backdrop-blur-sm transition-all duration-300 hover:bg-white hover:shadow-lg">
                 Learn More
               </button>
             </motion.div>
@@ -164,10 +164,10 @@ export default function LandingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
           >
-            <h2 className="mb-4 text-4xl font-bold text-gray-800 md:text-5xl">
+            <h2 className="text-cambridge-blue mb-4 text-4xl font-bold md:text-5xl">
               Everything You Need
             </h2>
-            <p className="mx-auto max-w-2xl text-xl text-gray-600">
+            <p className="text-cambridge-blue/80 mx-auto max-w-2xl text-xl">
               Discover all the features that make community living effortless
               and enjoyable.
             </p>
@@ -292,7 +292,7 @@ export default function LandingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 2.6 }}
           >
-            <h2 className="mb-6 text-4xl font-bold text-white md:text-5xl">
+            <h2 className="text-black-500 mb-6 text-4xl font-bold md:text-5xl">
               Ready to Connect?
             </h2>
             <p className="mb-8 text-xl text-white/90">
@@ -310,18 +310,20 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-800 py-12 text-white">
+      <footer className="bg-cambridge-blue py-12 text-white">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <div className="mb-4 flex items-center justify-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-amber-400 to-orange-500">
+              <div className="from-hunyadi-yellow to-light-coral flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br shadow-lg">
                 <span className="text-xs font-bold text-white">NH</span>
               </div>
-              <span className="text-xl font-bold">NeighbourhoodHub</span>
+              <span className="text-xl font-bold text-white">
+                NeighbourhoodHub
+              </span>
             </div>
-            <p className="mb-4 text-gray-400">Your Community, Connected.</p>
-            <p className="text-sm text-gray-500">
-              © 2025 Alt-F4. All rights reserved.
+            <p className="mb-4 text-white/80">Your Community, Connected.</p>
+            <p className="text-sm text-white/60">
+              © 2025 NeighbourhoodHub. All rights reserved.
             </p>
           </div>
         </div>
