@@ -3,6 +3,7 @@
 import { Inter } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion";
 import db from "~/data/mock-db.json";
 import AuthGuard from "~/components/AuthGuard";
 
@@ -106,7 +107,7 @@ const StaffContactsPage = () => {
     if (lowerRole.includes("security")) {
       return (
         <svg
-          className="h-6 w-6 text-red-600"
+          className="text-tea-rose-red h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -122,7 +123,7 @@ const StaffContactsPage = () => {
     } else if (lowerRole.includes("electric")) {
       return (
         <svg
-          className="h-6 w-6 text-yellow-600"
+          className="text-hunyadi-yellow h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -141,7 +142,7 @@ const StaffContactsPage = () => {
     ) {
       return (
         <svg
-          className="h-6 w-6 text-blue-600"
+          className="text-cambridge-blue h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -163,7 +164,7 @@ const StaffContactsPage = () => {
     } else if (lowerRole.includes("manager") || lowerRole.includes("admin")) {
       return (
         <svg
-          className="h-6 w-6 text-purple-600"
+          className="text-cambridge-blue h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -179,7 +180,7 @@ const StaffContactsPage = () => {
     } else {
       return (
         <svg
-          className="h-6 w-6 text-gray-600"
+          className="text-cambridge-blue/70 h-6 w-6"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -197,27 +198,39 @@ const StaffContactsPage = () => {
 
   return (
     <AuthGuard>
-      <div className={`min-h-screen bg-slate-50 ${inter.className}`}>
-        <div className="container mx-auto px-4 py-8">
+      <div
+        className={`from-linen via-tea-rose-red/10 to-hunyadi-yellow/20 min-h-screen bg-gradient-to-br ${inter.className}`}
+      >
+        <div className="page-container">
           {/* Header Section */}
-          <div className="mb-8">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="mb-12"
+          >
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <h1 className="text-cambridge-blue text-4xl font-bold sm:text-5xl">
                   Official Staff Contacts
                 </h1>
-                <p className="text-gray-600">
+                <p className="text-cambridge-blue/70 mt-3 text-lg">
                   Get in touch with our management and maintenance team
                 </p>
-              </div>
+              </motion.div>
 
               {/* Back Button */}
               <Link
                 href="/complaints"
-                className="focus:ring-brand inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-colors duration-200 hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none"
+                className="btn-secondary group inline-flex items-center gap-3 px-6 py-3 font-semibold"
               >
-                <svg
-                  className="h-4 w-4"
+                <motion.svg
+                  whileHover={{ x: -4 }}
+                  className="h-5 w-5 transition-transform group-hover:-translate-x-1"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -228,114 +241,190 @@ const StaffContactsPage = () => {
                     strokeWidth={2}
                     d="M10 19l-7-7m0 0l7-7m-7 7h18"
                   />
-                </svg>
+                </motion.svg>
                 Back to Complaints
               </Link>
             </div>
-          </div>
+          </motion.div>
 
           {/* Staff Stats */}
-          <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-12 grid grid-cols-1 gap-6 sm:grid-cols-3"
+          >
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="glass-card shadow-soft rounded-2xl p-8 text-center"
+            >
+              <motion.h3
+                initial={{ scale: 0.5 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", delay: 0.3 }}
+                className="text-cambridge-blue text-4xl font-bold"
+              >
                 {staffMembers.length}
-              </h3>
-              <p className="text-sm text-gray-600">Staff Members</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">24/7</h3>
-              <p className="text-sm text-gray-600">Availability</p>
-            </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 text-center shadow-sm">
-              <h3 className="text-2xl font-bold text-gray-900">
+              </motion.h3>
+              <p className="text-cambridge-blue/70 mt-2">Staff Members</p>
+            </motion.div>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="glass-card shadow-soft rounded-2xl p-8 text-center"
+            >
+              <motion.h3
+                initial={{ scale: 0.5 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", delay: 0.4 }}
+                className="text-cambridge-blue text-4xl font-bold"
+              >
+                24/7
+              </motion.h3>
+              <p className="text-cambridge-blue/70 mt-2">Availability</p>
+            </motion.div>
+            <motion.div
+              whileHover={{ y: -4, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="glass-card shadow-soft rounded-2xl p-8 text-center"
+            >
+              <motion.h3
+                initial={{ scale: 0.5 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", delay: 0.5 }}
+                className="text-cambridge-blue text-4xl font-bold"
+              >
                 {
                   new Set(staffMembers.map((staff) => staff.role.split(" ")[0]))
                     .size
                 }
-              </h3>
-              <p className="text-sm text-gray-600">Departments</p>
-            </div>
-          </div>
+              </motion.h3>
+              <p className="text-cambridge-blue/70 mt-2">Departments</p>
+            </motion.div>
+          </motion.div>
 
           {/* Emergency Notice */}
-          <div className="mb-8 rounded-lg border border-red-200 bg-red-50 p-4">
-            <div className="flex items-start gap-3">
-              <svg
-                className="mt-0.5 h-6 w-6 text-red-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="border-tea-rose-red/30 from-tea-rose-red/10 to-light-coral/10 shadow-soft mb-12 rounded-3xl border bg-gradient-to-r p-8"
+          >
+            <div className="flex items-start gap-6">
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: "spring", delay: 0.4, duration: 0.8 }}
+                className="from-tea-rose-red/20 to-light-coral/20 rounded-2xl bg-gradient-to-br p-4"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z"
-                />
-              </svg>
-              <div>
-                <h3 className="font-semibold text-red-800">
+                <svg
+                  className="text-tea-rose-red h-8 w-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z"
+                  />
+                </svg>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <h3 className="text-tea-rose-red text-xl font-bold">
                   Emergency Contact
                 </h3>
-                <p className="text-sm text-red-700">
+                <p className="text-cambridge-blue/80 mt-2">
                   For life-threatening emergencies, please call{" "}
-                  <strong>112</strong> or your local emergency services first.
+                  <strong className="text-tea-rose-red">112</strong> or your
+                  local emergency services first.
                 </p>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Staff Members List */}
-          <div className="space-y-4">
-            <h2 className="text-xl font-semibold text-gray-900">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="space-y-8"
+          >
+            <motion.h2
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+              className="text-cambridge-blue text-3xl font-bold"
+            >
               Contact Information
-            </h2>
+            </motion.h2>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              {staffMembers.map((staff) => (
-                <div
+            <div className="grid gap-8 md:grid-cols-2">
+              {staffMembers.map((staff, index) => (
+                <motion.div
                   key={staff.id}
-                  className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 * index }}
+                  whileHover={{ y: -6, scale: 1.02 }}
+                  className="glass-card shadow-soft rounded-3xl p-8 transition-all duration-300"
                 >
                   {/* Staff Header */}
-                  <div className="mb-4 flex items-start gap-4">
-                    <div className="rounded-full bg-gray-100 p-3">
+                  <div className="mb-6 flex items-start gap-6">
+                    <motion.div
+                      initial={{ scale: 0.8, rotate: -10 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ type: "spring", delay: 0.2 }}
+                      className="from-cambridge-blue/20 to-linen/20 rounded-2xl bg-gradient-to-br p-4"
+                    >
                       {getRoleIcon(staff.role)}
-                    </div>
+                    </motion.div>
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900">
+                      <h3 className="text-cambridge-blue text-xl font-bold">
                         {staff.name}
                       </h3>
-                      <p className="text-gray-600">{staff.role}</p>
+                      <p className="text-cambridge-blue/70 mt-1">
+                        {staff.role}
+                      </p>
                     </div>
                   </div>
 
                   {/* Contact Information */}
-                  <div className="space-y-3">
+                  <div className="space-y-6">
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <svg
-                          className="h-4 w-4 text-gray-500"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                          />
-                        </svg>
-                        <span className="text-sm text-gray-600">
+                      <div className="flex items-center gap-3">
+                        <div className="from-cambridge-blue/10 to-linen/10 rounded-xl bg-gradient-to-br p-2">
+                          <svg
+                            className="text-cambridge-blue h-5 w-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                            />
+                          </svg>
+                        </div>
+                        <span className="text-cambridge-blue font-medium">
                           {formatPhoneNumber(staff.contact)}
                         </span>
                       </div>
 
                       {/* Tappable Contact Button */}
-                      <a
+                      <motion.a
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         href={`tel:${staff.contact}`}
-                        className="bg-brand hover:bg-brand-dark focus:ring-brand inline-flex items-center gap-1 rounded-md px-4 py-2 text-sm font-medium text-white transition-colors focus:ring-2 focus:ring-offset-1 focus:outline-none"
+                        className="btn-primary inline-flex items-center gap-2 px-6 py-3 text-sm font-semibold"
                       >
                         <svg
                           className="h-4 w-4"
@@ -351,27 +440,31 @@ const StaffContactsPage = () => {
                           />
                         </svg>
                         Call Now
-                      </a>
+                      </motion.a>
                     </div>
 
                     {/* Additional Contact Options */}
-                    <div className="flex gap-2">
-                      <button
+                    <div className="flex gap-3">
+                      <motion.button
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
                         onClick={() => copyToClipboard(staff.contact)}
-                        className="flex-1 rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                        className="btn-secondary flex-1 px-4 py-3 text-sm font-semibold"
                       >
                         Copy Number
-                      </button>
-                      <button
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
                         onClick={() =>
                           setActiveChatId(
                             activeChatId === staff.id ? null : staff.id,
                           )
                         }
-                        className="rounded-md border border-gray-300 bg-white p-1.5 text-gray-600 transition-colors hover:bg-gray-50"
+                        className="from-cambridge-blue/20 to-linen/20 text-cambridge-blue hover:from-cambridge-blue/30 hover:to-linen/30 rounded-2xl bg-gradient-to-r p-3 transition-all duration-300"
                       >
                         <svg
-                          className="h-4 w-4"
+                          className="h-5 w-5"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -383,82 +476,46 @@ const StaffContactsPage = () => {
                             d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                           />
                         </svg>
-                      </button>
+                      </motion.button>
                     </div>
                   </div>
 
                   {/* Availability Indicator */}
-                  <div className="mt-4 flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                    <span className="text-xs text-gray-500">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="from-cambridge-blue/5 to-linen/10 mt-6 flex items-center gap-3 rounded-2xl bg-gradient-to-r p-3"
+                  >
+                    <motion.div
+                      animate={{ scale: [1, 1.2, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                      className="from-cambridge-blue to-cambridge-blue/80 h-3 w-3 rounded-full bg-gradient-to-r"
+                    ></motion.div>
+                    <span className="text-cambridge-blue/80 text-sm font-medium">
                       Available for contact
                     </span>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Empty State */}
           {staffMembers.length === 0 && (
-            <div className="rounded-lg border border-gray-200 bg-white p-12 text-center">
-              <svg
-                className="mx-auto h-12 w-12 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="glass-card shadow-soft rounded-3xl p-16 text-center"
+            >
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", delay: 0.2 }}
+                className="from-cambridge-blue/20 to-linen/20 mx-auto mb-6 h-20 w-20 rounded-3xl bg-gradient-to-br p-5"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-              <h3 className="mt-4 text-lg font-medium text-gray-900">
-                No staff contacts available
-              </h3>
-              <p className="mt-2 text-gray-600">
-                Staff contact information will be displayed here when available.
-              </p>
-            </div>
-          )}
-
-          {/* Additional Information */}
-          <div className="mt-8 rounded-lg border border-blue-200 bg-blue-50 p-4">
-            <div className="flex items-start gap-3">
-              <svg
-                className="mt-0.5 h-6 w-6 text-blue-600"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              <div>
-                <h3 className="font-semibold text-blue-800">Office Hours</h3>
-                <p className="text-sm text-blue-700">
-                  Our staff is available for non-emergency matters from 9:00 AM
-                  to 6:00 PM, Monday through Saturday. Emergency maintenance
-                  issues are addressed 24/7.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Toast Notification */}
-        {toast && (
-          <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 transform">
-            <div className="rounded-lg border border-green-300 bg-green-100 px-4 py-2 text-green-800 shadow-lg">
-              <div className="flex items-center gap-2">
                 <svg
-                  className="h-4 w-4"
+                  className="text-cambridge-blue h-full w-full"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -467,29 +524,126 @@ const StaffContactsPage = () => {
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     strokeWidth={2}
-                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
                   />
                 </svg>
-                {toast}
+              </motion.div>
+              <h3 className="text-cambridge-blue mb-3 text-2xl font-bold">
+                No staff contacts available
+              </h3>
+              <p className="text-cambridge-blue/60">
+                Staff contact information will be displayed here when available.
+              </p>
+            </motion.div>
+          )}
+
+          {/* Additional Information */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="border-cambridge-blue/30 from-cambridge-blue/10 to-linen/10 shadow-soft mt-12 rounded-3xl border bg-gradient-to-r p-8"
+          >
+            <div className="flex items-start gap-6">
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: "spring", delay: 0.7, duration: 0.8 }}
+                className="from-cambridge-blue/20 to-linen/20 rounded-2xl bg-gradient-to-br p-4"
+              >
+                <svg
+                  className="text-cambridge-blue h-8 w-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8 }}
+              >
+                <h3 className="text-cambridge-blue text-xl font-bold">
+                  Office Hours
+                </h3>
+                <p className="text-cambridge-blue/80 mt-2">
+                  Our staff is available for non-emergency matters from 9:00 AM
+                  to 6:00 PM, Monday through Saturday. Emergency maintenance
+                  issues are addressed 24/7.
+                </p>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Toast Notification */}
+        {toast && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 50, scale: 0.9 }}
+            className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 transform"
+          >
+            <div className="glass-card border-cambridge-blue/30 shadow-soft rounded-2xl border px-6 py-4">
+              <div className="flex items-center gap-3">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="from-cambridge-blue/20 to-linen/20 rounded-xl bg-gradient-to-r p-2"
+                >
+                  <svg
+                    className="text-cambridge-blue h-5 w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </motion.div>
+                <span className="text-cambridge-blue font-medium">{toast}</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Chatbox */}
         {activeChatId !== null && (
-          <div className="fixed right-4 bottom-4 z-50 w-80 rounded-lg border border-gray-300 bg-white shadow-xl">
-            <div className="flex items-center justify-between border-b border-gray-200 p-4">
-              <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                <h3 className="font-semibold text-gray-900">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: 100 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, y: 100 }}
+            transition={{ type: "spring", duration: 0.5 }}
+            className="glass-card shadow-soft fixed right-6 bottom-6 z-50 w-96 rounded-3xl"
+          >
+            <div className="border-cambridge-blue/20 flex items-center justify-between border-b p-6">
+              <div className="flex items-center gap-3">
+                <motion.div
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="from-cambridge-blue to-cambridge-blue/80 h-3 w-3 rounded-full bg-gradient-to-r"
+                ></motion.div>
+                <h3 className="text-cambridge-blue font-bold">
                   Chat with{" "}
                   {staffMembers.find((s) => s.id === activeChatId)?.name}
                 </h3>
               </div>
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
                 onClick={() => setActiveChatId(null)}
-                className="text-gray-400 hover:text-gray-600"
+                className="from-tea-rose-red/20 to-light-coral/20 text-tea-rose-red hover:from-tea-rose-red/30 hover:to-light-coral/30 rounded-2xl bg-gradient-to-r p-2 transition-all duration-300"
               >
                 <svg
                   className="h-5 w-5"
@@ -504,14 +658,16 @@ const StaffContactsPage = () => {
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
-              </button>
+              </motion.button>
             </div>
-            <div className="h-60 overflow-y-auto p-4">
+            <div className="h-72 overflow-y-auto p-6">
               {(chatMessages[activeChatId] ?? []).length > 0 ? (
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {(chatMessages[activeChatId] ?? []).map((message) => (
-                    <div
+                    <motion.div
                       key={message.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
                       className={`flex ${
                         message.sender === "You"
                           ? "justify-end"
@@ -519,39 +675,43 @@ const StaffContactsPage = () => {
                       }`}
                     >
                       <div
-                        className={`max-w-xs rounded-lg px-3 py-2 text-sm ${
+                        className={`max-w-xs rounded-2xl px-4 py-3 ${
                           message.sender === "You"
-                            ? "bg-blue-600 text-white"
-                            : "bg-gray-100 text-gray-800"
+                            ? "from-cambridge-blue to-cambridge-blue/90 bg-gradient-to-r text-white"
+                            : "from-linen/50 to-tea-rose-red/20 text-cambridge-blue bg-gradient-to-r"
                         }`}
                       >
-                        <p>{message.text}</p>
+                        <p className="text-sm">{message.text}</p>
                         <p
                           className={`mt-1 text-xs ${
                             message.sender === "You"
-                              ? "text-blue-100"
-                              : "text-gray-500"
+                              ? "text-white/70"
+                              : "text-cambridge-blue/60"
                           }`}
                         >
                           {new Date(message.timestamp).toLocaleTimeString()}
                         </p>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               ) : (
-                <div className="mb-4 rounded-lg bg-gray-100 p-3">
-                  <p className="text-sm text-gray-600">
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="from-linen/30 to-tea-rose-red/10 mb-4 rounded-2xl bg-gradient-to-r p-4"
+                >
+                  <p className="text-cambridge-blue/70 text-sm">
                     Start a conversation with{" "}
                     {staffMembers.find((s) => s.id === activeChatId)?.name}.
                     They&apos;ll receive your messages and can respond
                     accordingly.
                   </p>
-                </div>
+                </motion.div>
               )}
             </div>
-            <div className="border-t border-gray-200 p-4">
-              <div className="flex gap-2">
+            <div className="border-cambridge-blue/20 border-t p-6">
+              <div className="flex gap-3">
                 <input
                   type="text"
                   value={currentMessage}
@@ -560,18 +720,20 @@ const StaffContactsPage = () => {
                     activeChatId && handleKeyPress(e, activeChatId)
                   }
                   placeholder="Type your message..."
-                  className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none"
+                  className="input-modern flex-1"
                 />
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                   onClick={() => activeChatId && sendMessage(activeChatId)}
                   disabled={!currentMessage.trim()}
-                  className="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
+                  className="btn-primary px-6 py-3 font-semibold disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Send
-                </button>
+                </motion.button>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </AuthGuard>
