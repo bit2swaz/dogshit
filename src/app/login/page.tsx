@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Inter } from "next/font/google";
+import { motion } from "framer-motion";
 import { useAuth } from "~/context/AuthContext";
 import toast from "react-hot-toast";
 
@@ -52,22 +53,43 @@ const LoginPage = () => {
 
   return (
     <main
-      className={`flex min-h-screen items-center justify-center bg-slate-50 px-4 ${inter.className}`}
+      className={`from-linen via-tea-rose-red/10 to-hunyadi-yellow/20 flex min-h-screen items-center justify-center bg-gradient-to-br px-4 ${inter.className}`}
     >
-      <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
-          <h1 className="mb-2 text-4xl font-bold text-gray-900">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-md"
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-12 text-center"
+        >
+          <h1 className="text-cambridge-blue mb-4 text-5xl font-bold">
             NeighborhoodHub
           </h1>
-          <p className="text-gray-600">Welcome to your community</p>
-        </div>
+          <p className="text-cambridge-blue/70 text-xl">
+            Welcome to your community
+          </p>
+        </motion.div>
 
-        <div className="rounded-lg border border-gray-200 bg-white p-8 shadow-sm">
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="glass-card shadow-soft rounded-2xl p-10"
+        >
+          <form onSubmit={handleLogin} className="space-y-8">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.6 }}
+            >
               <label
                 htmlFor="name"
-                className="mb-2 block text-sm font-medium text-gray-700"
+                className="text-cambridge-blue mb-3 block text-base font-semibold"
               >
                 Your Name
               </label>
@@ -77,15 +99,19 @@ const LoginPage = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="focus:border-brand focus:ring-brand/50 w-full rounded-md border border-gray-300 bg-slate-50 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
+                className="input-modern w-full text-lg"
                 placeholder="Enter your full name"
               />
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 0.8 }}
+            >
               <label
                 htmlFor="age"
-                className="mb-2 block text-sm font-medium text-gray-700"
+                className="text-cambridge-blue mb-3 block text-base font-semibold"
               >
                 Your Age
               </label>
@@ -95,17 +121,21 @@ const LoginPage = () => {
                 name="age"
                 value={formData.age}
                 onChange={handleInputChange}
-                className="focus:border-brand focus:ring-brand/50 w-full rounded-md border border-gray-300 bg-slate-50 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
+                className="input-modern w-full text-lg"
                 placeholder="Enter your age"
                 min="1"
                 max="120"
               />
-            </div>
+            </motion.div>
 
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.4, delay: 1.0 }}
+            >
               <label
                 htmlFor="societyCode"
-                className="mb-2 block text-sm font-medium text-gray-700"
+                className="text-cambridge-blue mb-3 block text-base font-semibold"
               >
                 Society Code
               </label>
@@ -115,26 +145,36 @@ const LoginPage = () => {
                 name="societyCode"
                 value={formData.societyCode}
                 onChange={handleInputChange}
-                className="focus:border-brand focus:ring-brand/50 w-full rounded-md border border-gray-300 bg-slate-50 px-4 py-3 text-gray-900 placeholder-gray-500 transition-all duration-200 focus:bg-white focus:ring-2 focus:outline-none"
+                className="input-modern w-full text-lg"
                 placeholder="Enter your society code"
               />
-            </div>
+            </motion.div>
 
-            <button
+            <motion.button
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 1.2 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               type="submit"
-              className="bg-brand hover:bg-brand-dark focus:ring-brand w-full transform rounded-md px-4 py-3 font-semibold text-white transition-all duration-200 hover:scale-105 focus:ring-2 focus:ring-offset-2 focus:outline-none active:scale-95"
+              className="btn-primary w-full py-4 text-xl font-bold"
             >
               Login
-            </button>
+            </motion.button>
           </form>
-        </div>
+        </motion.div>
 
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-500">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-8 text-center"
+        >
+          <p className="text-cambridge-blue/70 text-base">
             Don&apos;t have a society code? Contact your administrator.
           </p>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </main>
   );
 };
